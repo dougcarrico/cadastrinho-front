@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="styles/styles.css">
+
+    <title>Cadastrinho</title>
+</head>
+<body>
+    <!-- Cabeçalho do Sistema-->
+     <header>
+        <div class="title">
+            Una - Loja Holística - Cadastro de produtos
+        </div>
+     </header>
+     
+     <!--Campos para adição de um novo produto-->
+     <section class="addProduct">
+        <input type="text" id="productNameInput" placeholder="Nome">
+        <input type="number" id="productQuantityInput" placeholder="Quantidade" min="0" step="5">
+        <input type="text" id="productTypeInput" placeholder="Tipo">
+        <button onclick="newProduct()" class="button">Adicionar</button>
+     </section>
+
+    <!-- Tabela de produtos-->
+     <section>
+        <table id="productTable">
+            <tr>
+                <th>Nome</th>
+                <th>Quantidade</th>
+                <th>Tipo</th>
+                <th>Última atualização</th>
+                <th></th>
+                <th></th>
+            </tr>
+        </table>
+     </section>
+
+    <script src="scripts/script.js"></script>
+
+</body>
+</html>
