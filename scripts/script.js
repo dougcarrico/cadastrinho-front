@@ -38,7 +38,6 @@ const getProduto = (produto) => {
         .catch((error) => {
             console.error('Error:', error);
         })
-
 }
 
 /*
@@ -48,22 +47,25 @@ Função para exibir na interface os produtos já cadastrados no banco
 */
 const insertList = (name, quantity, type, lastUpdate) => {
     
-    var product = [name, quantity, type, lastUpdate];
-    var table = document.getElementById('productTable');
-    var row = table.insertRow();
+    let product = [name, quantity, type, lastUpdate];
+    let table = document.getElementById('productTable');
+    let row = table.insertRow();
+    row.className = 'productRow';
 
-    for (var i = 0; i < product.length; i++) {
-        var cel = row.insertCell(i);
+    /*Popula tabela*/
+    for (let i = 0; i < product.length; i++) {
+        let cel = row.insertCell(i);
         cel.textContent = product[i];
     }
 
+    /*insere células com botões de editar e deletar no final das linhas da tabela*/
     insertButton(row.insertCell(-1), "editCell", "Editar")
     insertButton(row.insertCell(-1), "deleteCell", "Excluir")
 
+    /*Limpa inputs de adição de produtos*/
     document.getElementById("productNameInput").value = "";
     document.getElementById("productQuantityInput").value = "";
     document.getElementById("productTypeInput").value = "";
-
 }
 
 /*
@@ -96,9 +98,15 @@ const postProduct = (name, quantity, type) => {
         body: formData
     })
         .then((response) => response.json())
+        .then(function (data) {
+            if (data.nome){
+            insertList(data.nome, data.quantidade, data.tipo, data.data_atualizacao)
+            }
+        })
         .catch((error) => {
             console.error('Error:', error);
         })
+
 }
 
 const newProduct = () => {
@@ -111,12 +119,17 @@ const newProduct = () => {
         alert("Não é possível adicionar um produto sem nome!")
     }
     else {
-        teste = postProduct(name, quantity, type);
-        console.log("Item adicionado!")
-        console.log(teste)
-        /*getProduto(name);*/
+        postProduct(name, quantity, type);
     }
 
+}
+
+const refreshList = () => {
+    const productList = document.querySelectorAll('.productRow');
+    productList.forEach(item => {
+        item.remove();
+    })
+    getProdutos();
 }
 
 getProdutos();
