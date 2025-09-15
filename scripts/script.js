@@ -59,8 +59,8 @@ const insertList = (name, quantity, type, lastUpdate) => {
     }
 
     /*insere células com botões de editar e deletar no final das linhas da tabela*/
-    insertButton(row.insertCell(-1), "editCell", "Editar")
-    insertButton(row.insertCell(-1), "deleteCell", "Excluir")
+    insertButton(row.insertCell(-1), "edit", "Editar", name)
+    insertButton(row.insertCell(-1), "delete", "Excluir", name)
 
     /*Limpa inputs de adição de produtos*/
     document.getElementById("productNameInput").value = "";
@@ -73,12 +73,23 @@ const insertList = (name, quantity, type, lastUpdate) => {
 Função para inserir botões dinamicamente
 ----------------------------------------
 */
-const insertButton = (parent, buttonClass, textNode) => {
+const insertButton = (parent, action, textNode, productName) => {
     let span = document.createElement("span");
-    let txt = document.createTextNode(textNode)
-    span.className = buttonClass;
+    let txt = document.createTextNode(textNode);
+    
     span.appendChild(txt);
     parent.appendChild(span);
+
+    if (action == 'delete'){
+        span.className = "delete-btn";
+        span.addEventListener('click', function(){ deleteProduct(productName); });
+    }
+
+    if (action == 'edit'){
+        span.className = "edit-btn";
+        /*span.addEventListener('click', editProduct);*/
+    }
+
 }
 
 /*
@@ -98,8 +109,8 @@ const postProduct = (name, quantity, type) => {
         body: formData
     })
         .then((response) => response.json())
-        .then(function (data) {
-            if (data.nome){
+        .then((data) => {
+            if (data.nome) {
             insertList(data.nome, data.quantidade, data.tipo, data.data_atualizacao)
             }
         })
@@ -130,6 +141,26 @@ const refreshList = () => {
         item.remove();
     })
     getProdutos();
+}
+
+const deleteProduct = (product) => {
+    console.log(`produto ${product} deletado!`);
+
+    let url = 'http://127.0.0.1:5000/produto?nome=' + product;
+    fetch(url, {
+        method: 'delete',
+    })
+        .then((response) => response.json())
+        .then((data) => {
+            if (data.message == 'Produto Removido') {
+                console.log("mensagem aqui")
+                refreshList();
+            }
+            console.log(data);
+        })
+        .catch((error) => {
+            console.error('Error:', error);
+        })
 }
 
 getProdutos();
