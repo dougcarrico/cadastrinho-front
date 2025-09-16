@@ -146,7 +146,7 @@ const refreshList = () => {
 const deleteProduct = (product) => {
     console.log(`produto ${product} deletado!`);
 
-    let url = 'http://127.0.0.1:5000/produto?nome=' + product;
+    let url = `http://127.0.0.1:5000/produto?nome=${product}`;
     fetch(url, {
         method: 'delete',
     })
