@@ -16,7 +16,7 @@
         </div>
      </header>
      
-     <!--Campos para adição de um novo produto-->
+     <!-- Campos para adição de um novo produto -->
      <section class="addProduct">
         <input type="text" id="productNameInput" placeholder="Nome">
         <input type="number" id="productQuantityInput" placeholder="Quantidade" min="0" step="5">
@@ -38,6 +38,30 @@
             </tr>
         </table>
      </section>
+
+     <!-- Modal de edição -->
+     <div id="editModal" class="modalBackdrop">
+
+        <!-- Conteúdo do modal -->
+         <div class="modal">
+            <div class="modal-header"> 
+                <span class="modal-title">Editar produto</span> 
+                <span class="close">&times;</span>
+            </div>
+
+            <div class="modal-body">
+                <input type="text" id="editNameInput" placeholder="Nome">
+                <input type="number" id="editQuantityInput" placeholder="Quantidade" min="0" step="5">
+                <input type="text" id="editTypeInput" placeholder="Tipo">
+            </div>
+
+            <div class="modal-footer">
+                <button id="cancelModal" class="button">Cancelar</button>
+                <button id="confirmModal" class="button">Confirmar</button>
+            </div>
+         </div>
+
+     </div>
 
     <script src="scripts/script.js"></script>
 

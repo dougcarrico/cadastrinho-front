@@ -59,7 +59,7 @@ const insertList = (name, quantity, type, lastUpdate) => {
     }
 
     /*insere células com botões de editar e deletar no final das linhas da tabela*/
-    insertButton(row.insertCell(-1), "edit", "Editar", name)
+    insertButton(row.insertCell(-1), "edit", "Editar", name, quantity, type)
     insertButton(row.insertCell(-1), "delete", "Excluir", name)
 
     /*Limpa inputs de adição de produtos*/
@@ -73,7 +73,7 @@ const insertList = (name, quantity, type, lastUpdate) => {
 Função para inserir botões dinamicamente
 ----------------------------------------
 */
-const insertButton = (parent, action, textNode, productName) => {
+const insertButton = (parent, action, textNode, productName, productQuantity, productType) => {
     let span = document.createElement("span");
     let txt = document.createTextNode(textNode);
     
@@ -87,7 +87,7 @@ const insertButton = (parent, action, textNode, productName) => {
 
     if (action == 'edit'){
         span.className = "edit-btn";
-        /*span.addEventListener('click', editProduct);*/
+        span.addEventListener('click', function(){ showEditModal(productName, productQuantity, productType); });
     }
 
 }
@@ -161,6 +161,42 @@ const deleteProduct = (product) => {
         .catch((error) => {
             console.error('Error:', error);
         })
+}
+
+/* Função que exibe modal de edição*/
+const showEditModal = (product, quantity, type) => {
+    console.log(`modal "${product}" aberto!`);
+
+    modal = document.getElementById("editModal");
+    modal.style.display = "block";
+
+    nameInput = document.getElementById("editNameInput");
+    nameInput.value = product;
+
+    quantityInput = document.getElementById("editQuantityInput");
+    quantityInput.value = quantity;
+
+    typeInput = document.getElementById("editTypeInput");
+    typeInput.value = type;
+
+    cancelButton = document.getElementById("cancelModal");
+    cancelButton.addEventListener('click', function(){ cancelModal(); });
+
+    confirmButton = document.getElementById("confirmModal");
+    confirmButton.addEventListener('click', function(){ confirmModal(); });
+}
+
+
+/* Função que define ações do botão de cancelar modal de edição*/
+const cancelModal = () => {
+    modal = document.getElementById("editModal");
+    modal.style.display = "none";
+}
+
+/* Função que define ações do botão de confirmar modal de edição*/
+const confirmModal = () => {
+    modal = document.getElementById("editModal");
+    modal.style.display = "none";
 }
 
 getProdutos();
