@@ -165,11 +165,12 @@ const deleteProduct = (product) => {
 
 /* Função que exibe modal de edição*/
 const showEditModal = (product, quantity, type) => {
-    console.log(`modal "${product}" aberto!`);
 
+    /* Exibe modal */
     modal = document.getElementById("editModal");
     modal.style.display = "block";
 
+    /* Preenche campos com valores atuais do produto */
     nameInput = document.getElementById("editNameInput");
     nameInput.value = product;
 
@@ -179,11 +180,19 @@ const showEditModal = (product, quantity, type) => {
     typeInput = document.getElementById("editTypeInput");
     typeInput.value = type;
 
+    /* Cancela e fecha modal*/
     cancelButton = document.getElementById("cancelModal");
-    cancelButton.addEventListener('click', function(){ cancelModal(); });
+    cancelButton.addEventListener('click', function eventHandler() { 
+        cancelModal(); 
+        this.removeEventListener('click', eventHandler);
+    });
 
+    /* Executa função de edição com valores preenchidos nos campos */
     confirmButton = document.getElementById("confirmModal");
-    confirmButton.addEventListener('click', function(){ confirmModal(); });
+    confirmButton.addEventListener('click', function eventHandler() { 
+        confirmModal(product, nameInput.value, quantityInput.value, typeInput.value);
+        this.removeEventListener('click', eventHandler);
+    });
 }
 
 
@@ -194,9 +203,40 @@ const cancelModal = () => {
 }
 
 /* Função que define ações do botão de confirmar modal de edição*/
-const confirmModal = () => {
+const confirmModal = (oldName, name, quantity, type) => {
+    console.log(`NomeAtual = ${oldName}, Nome = ${name}, quantidade = ${quantity}, tipo = ${type}`)
+    
+    putProduct(oldName, name, quantity, type);
     modal = document.getElementById("editModal");
     modal.style.display = "none";
 }
+
+const putProduct = (oldName, name, quantity, type) => {
+    const formData = new FormData();
+    formData.append("nome", oldName);
+    formData.append('nome_novo', name);
+    formData.append('quantidade_nova', quantity);
+    formData.append('tipo_novo', type);
+
+    let url = 'http://127.0.0.1:5000/produto';
+    fetch(url, {
+        method: 'put',
+        body: formData
+    })
+        .then((response) => response.json())
+        .then((data) => {
+            console.log(data);
+            if (data.message == "Produto atualizado!") {
+                refreshList();
+            }
+        })
+        .catch((error) => {
+            console.error('Error:', error);
+            controler
+        })
+}
+
+const controller = new AbortController();
+const signal = controller.signal;
 
 getProdutos();
