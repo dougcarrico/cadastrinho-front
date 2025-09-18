@@ -9,6 +9,7 @@ onload = function () {
 Função para obter a lista de produtos via requisição GET
 --------------------------------------------------------
 */
+let editingProduct;
 
 const getProdutos = () => {
     let url = 'http://127.0.0.1:5000/produtos';
@@ -125,10 +126,9 @@ const newProduct = () => {
     let quantity = document.getElementById("productQuantityInput").value;
     let type = document.getElementById("productTypeInput").value;
 
-    /* Remove espaços em branco do início e do final do nome antes de enviar para o banco*/
+    /* Remove espaços em branco do início e do final do nome e tipo antes de enviar para o banco*/
     name = name.trim();
     type = type.trim();
-    console.log(quantity)
 
     console.log(`,${name},` + " " + quantity + " " + type)
     if (name === "") {
@@ -176,6 +176,9 @@ const deleteProduct = (product) => {
 /* Função que exibe modal de edição*/
 const showEditModal = (product, quantity, type) => {
 
+    editingProduct = product;
+    console.log("editando " + editingProduct);
+
     /* Exibe modal */
     modal = document.getElementById("editModal");
     modal.style.display = "block";
@@ -190,35 +193,60 @@ const showEditModal = (product, quantity, type) => {
     typeInput = document.getElementById("editTypeInput");
     typeInput.value = type;
 
-    /* Cancela e fecha modal*/
-    cancelButton = document.getElementById("cancelModal");
-    cancelButton.addEventListener('click', function eventHandler() { 
-        cancelModal(); 
-        this.removeEventListener('click', eventHandler);
-    });
+    /* Se clicar no botão, chama função para cancelar e fechar o*/
+    document.getElementById("cancelModal").addEventListener('click', cancelModal);
 
     /* Executa função de edição com valores preenchidos nos campos */
-    confirmButton = document.getElementById("confirmModal");
-    confirmButton.addEventListener('click', function eventHandler() { 
-        confirmModal(product, nameInput.value, quantityInput.value, typeInput.value);
-        this.removeEventListener('click', eventHandler);
-    });
+    document.getElementById("confirmModal").addEventListener('click', confirmModal);
 }
 
 
 /* Função que define ações do botão de cancelar modal de edição*/
 const cancelModal = () => {
+    document.getElementById("cancelModal").removeEventListener('click', cancelModal);
+    document.getElementById("confirmModal").removeEventListener('click', confirmModal);
+
     modal = document.getElementById("editModal");
     modal.style.display = "none";
 }
 
 /* Função que define ações do botão de confirmar modal de edição*/
-const confirmModal = (oldName, name, quantity, type) => {
-    console.log(`NomeAtual = ${oldName}, Nome = ${name}, quantidade = ${quantity}, tipo = ${type}`)
+const confirmModal = () => {
+    let name = document.getElementById("editNameInput").value;
+    let quantity = document.getElementById("editQuantityInput").value;
+    let type = document.getElementById("editTypeInput").value;
     
-    putProduct(oldName, name, quantity, type);
-    modal = document.getElementById("editModal");
-    modal.style.display = "none";
+    name = name.trim();
+    type = type.trim();
+
+    console.log(`,${name},` + " " + quantity + " " + type)
+    if (name === "") {
+        alert("O produto precisa ter nome!")
+    }
+    else if (quantity < 0 || quantity === "") {
+        quantity = 0;
+        putProduct(editingProduct, name, quantity, type);
+        modal = document.getElementById("editModal");
+        modal.style.display = "none";
+
+        document.getElementById("cancelModal").removeEventListener('click', cancelModal);
+        document.getElementById("confirmModal").removeEventListener('click', confirmModal);
+
+        editingProduct = null;
+    }
+    else {
+        putProduct(editingProduct, name, quantity, type);
+        modal = document.getElementById("editModal");
+        modal.style.display = "none";
+
+        document.getElementById("cancelModal").removeEventListener('click', cancelModal);
+        document.getElementById("confirmModal").removeEventListener('click', confirmModal);
+
+        editingProduct = null;
+    }
+
+    /*putProduct(oldName, name, quantity, type);*/
+    
 }
 
 const putProduct = (oldName, name, quantity, type) => {
