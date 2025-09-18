@@ -124,14 +124,24 @@ const newProduct = () => {
     let name = document.getElementById("productNameInput").value;
     let quantity = document.getElementById("productQuantityInput").value;
     let type = document.getElementById("productTypeInput").value;
-    console.log(name + " " + quantity + " " + type)
 
+    /* Remove espaços em branco do início e do final do nome antes de enviar para o banco*/
+    name = name.trim();
+    type = type.trim();
+    console.log(quantity)
+
+    console.log(`,${name},` + " " + quantity + " " + type)
     if (name === "") {
         alert("Não é possível adicionar um produto sem nome!")
+    }
+    else if (quantity < 0 || quantity === "") {
+        quantity = 0;
+        postProduct(name, quantity, type);
     }
     else {
         postProduct(name, quantity, type);
     }
+
 
 }
 
