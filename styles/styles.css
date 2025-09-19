@@ -1,11 +1,186 @@
+:root {
+    --white: #fff;
+    --cream: #FFFBF8;
+    --cream-hover: #f5eae2;
+    --cream-pressed: #e9d3c4;
+    --beige: #E3AA73;
+    --brown-1: #A74A1B;
+    --brown-1-hover: #913d13;
+    --brown-1-pressed: #77320f;
+    --brown-2: #452D20;
+    --grey-1: #DEDEDE;
+    --grey-2: #ADADAD;
+    --grey-3: #585858;
+    --black: #303030;
+    --error: #E93902;
+    --success: #348D3D;
+}
+
+/* Classe da fonte Roboto, caso queira utilizar diretamente em um elemento ou copiar informações
+100 = Thin; 200 = ExtraLight; 300 = Light; 
+400 = Regular; 500 = Medium; SemiBold = 600; 
+Bold = 700; Extrabold = 800; Black = 900;
+*/
+.roboto-400 {
+  font-family: "Roboto", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+  font-variation-settings:
+    "wdth" 100;
+}
+
+/* Classe da fonte Quicksand, caso queira utilizar diretamente em um elemento ou copiar informações
+300 = Light; 400 = Regular; 500 = Medium; SemiBold = 600; Bold = 700;
+*/
+.quicksand-400 {
+  font-family: "Quicksand", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+}
+
+body {
+    font-family: "Roboto", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+    font-variation-settings:
+    "wdth" 100;
+    background-color: var(--cream);
+}
+
+.button {
+    background-color: var(--brown-1);
+    font-family: "Quicksand", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 700;
+    font-size: 14px;
+    font-style: normal;
+    color: var(--cream);
+
+    border: 0;
+    border-radius: 4px;
+    padding: 0px 20px;
+    height: 40px;
+    box-sizing: border-box;
+}
+
+.button:hover {
+    background-color: var(--brown-1-hover);
+    cursor: pointer;
+}
+
+.button:active {
+    background-color: var(--brown-1-pressed);
+}
+
+.button-outline {
+    background-color: var(--cream);
+    border: 2px solid var(--brown-1);
+    color: var(--brown-1);
+}
+
+.button-outline:hover {
+    background-color: var(--cream-hover);
+}
+
+.button-outline:active {
+    background-color: var(--cream-pressed);
+}
+
+input {
+    font-family: "Quicksand", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 700;
+    font-size: 14px;
+    font-style: normal;
+    
+    background-color: var(--cream);
+    border: 2px solid var(--beige);
+    height: 40px;
+    box-sizing: border-box;
+    border-radius: 4px;
+    padding: 0px 8px;
+
+}
+
+input:hover {
+  border-color: var(--brown-1);
+}
+
+input:active{
+  border-color: var(--brown-1);
+}
+
+input::placeholder{
+    color: var(--grey-2);
+}
+
+.title {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+}
+
+.storeName {
+    font-family: "Quicksand", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 700;
+    font-size: 24px;
+    font-style: normal;
+    color: var(--brown-2)
+}
+
+.addProduct {
+    padding: 16px 0px;
+    display: flex;
+    gap: 8px;
+}
+
+#productNameInput {
+    width: 100%;
+}
+
+#productQuantityInput {
+    width: 120px;
+}
+
 table {
     border-collapse: collapse;
+    width: 100%;
+    font-family: "Quicksand", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 700;
+    font-size: 14px;
+    font-style: normal;
+    color: var(--black);
+    text-align: left;
 }
 
 th,
 td {
     padding: 8px;
-    border: 1px solid black;
+    border: 1px solid var(--beige);
+}
+
+th {
+    font-family: "Quicksand", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 700;
+    font-size: 12px;
+    font-style: normal;
+    color: var(--brown-2);
+    text-align: left;
+}
+
+.delete-btn {
+
+}
+
+.edit-btn {
+
 }
 
 .modalBackdrop {

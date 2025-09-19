@@ -3,18 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- Importanto Fontes -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
 
+    <!-- Folha de estilos -->
     <link rel="stylesheet" href="styles/styles.css">
 
-    <title>Cadastrinho</title>
+    <title>Una - Cadastro de produtos</title>
 </head>
 <body>
     <!-- Cabeçalho do Sistema-->
      <header>
         <div class="title">
-            Una - Loja Holística - Cadastro de produtos
+            <img src="images/logo_una.png" width="60px"> <span class="storeName">Cadastro de produtos</span>
         </div>
      </header>
+
+     <div></div>
      
      <!-- Campos para adição de um novo produto -->
      <section class="addProduct">
@@ -22,7 +30,7 @@
         <input type="number" id="productQuantityInput" placeholder="Quantidade" min="0" step="5">
         <input type="text" id="productTypeInput" placeholder="Tipo">
         <button onclick="newProduct()" class="button">Adicionar</button>
-        <button onclick="refreshList()" class="button">Atualizar</button>
+        <button onclick="refreshList()" class="button button-outline">Atualizar</button>
      </section>
 
     <!-- Tabela de produtos-->
