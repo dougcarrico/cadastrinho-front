@@ -103,7 +103,6 @@ input {
     box-sizing: border-box;
     border-radius: 4px;
     padding: 0px 8px;
-
 }
 
 input:hover {
@@ -146,6 +145,10 @@ input::placeholder{
 
 #productQuantityInput {
     width: 120px;
+}
+
+#productTypeInput {
+    width: 160px;
 }
 
 table {
@@ -205,7 +208,7 @@ th {
 }
 
 .delete-btn:hover > svg, .edit-btn:hover > svg {
-    fill: var(--brown-2);
+    fill: var(--brown-1-hover);
 }
 
 .modalBackdrop {
@@ -231,6 +234,7 @@ th {
     width: 80%;
     max-width: 600px;
     height: auto;
+    border-radius: 4px;
 
 }
 
@@ -255,4 +259,26 @@ th {
 .edit-input-group {
     display: flex;
     gap: 8px;
+    width: 100%;
+}
+
+#editNameInput {
+    width: 100%;
+}
+
+#editQuantityInput {
+    width: 120px;
+}
+
+#editTypeInput {
+    width: 160px;
+}
+
+.close-modal-button {
+    fill: var(--brown-1);
+}
+
+.close-modal-button:hover {
+    fill: var(--brown-1-hover);
+    cursor: pointer;
 }
