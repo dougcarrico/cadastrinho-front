@@ -282,3 +282,26 @@ th {
     fill: var(--brown-1-hover);
     cursor: pointer;
 }
+
+#toastWrapper {
+    position: fixed;
+    top: 8px;
+    left: 0;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.toast-success {
+    background-color: var(--success);
+    color: var(--white);
+    padding: 16px;
+    border-radius: 8px;
+}
+
+.toast-error {
+    background-color: var(--error);
+    color: var(--white);
+    padding: 16px;
+    border-radius: 8px;
+}

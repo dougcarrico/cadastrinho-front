@@ -108,20 +108,36 @@ const postProduct = (name, quantity, type) => {
     formData.append('quantidade', quantity);
     formData.append('tipo', type);
 
+    let responseData;
+    let responseStatus;
+    let responseOk;
+
     let url = 'http://127.0.0.1:5000/produto';
     fetch(url, {
         method: 'post',
         body: formData
     })
-        .then((response) => response.json())
+       .then((response) => {
+        responseData = response.json();
+        responseStatus = response.status;
+        responseOk = response.ok;
+
+        return responseData
+    })
         .then((data) => {
-            if (data.nome) {
-            insertList(data.nome, data.quantidade, data.tipo, data.data_atualizacao)
-            }
+            if (responseOk) {
+                console.log("Status 200");
+                insertList(data.nome, data.quantidade, data.tipo, data.data_atualizacao);
+                showToast('success', 'Produto cadastrado com sucesso!');
+            }   
+            else {
+                console.log("Outro status");
+                showToast('error', 'Houve um erro ao cadastrar o produto!');
+
+            }    
         })
         .catch((error) => {
-            console.error('Error:', error);
-        })
+            console.error('Error:', error);})
 
 }
 
@@ -169,11 +185,13 @@ const deleteProduct = (product) => {
             if (data.message == 'Produto Removido') {
                 console.log("mensagem aqui")
                 refreshList();
+                showToast('success', 'Produto removido com sucesso!');
             }
             console.log(data);
         })
         .catch((error) => {
             console.error('Error:', error);
+            showToast('error', 'Houve um erro ao remover o produto!');
         })
 }
 
@@ -274,12 +292,35 @@ const putProduct = (oldName, name, quantity, type) => {
             console.log(data);
             if (data.message == "Produto atualizado!") {
                 refreshList();
+                showToast('success', 'Produto editado com sucesso!');
             }
         })
         .catch((error) => {
             console.error('Error:', error);
-            controler
+            showToast('error', 'Houve um erro ao editar o produto');
         })
+}
+
+const showToast = (status, message, timeout = 5000) => {
+
+    let toastTemplate = `   <div id="toast" class="toast-${status}">
+                                <span>${message}</span>
+                            </div>`
+
+    parent = document.getElementById("toastWrapper");
+
+    console.log(parent);
+    parent.innerHTML=toastTemplate;
+
+    setTimeout(closeToast, timeout);
+    
+}
+
+const closeToast = () => {
+    if (document.getElementById("toast")) {
+        document.getElementById("toast").remove();
+    }
+
 }
 
 const controller = new AbortController();
