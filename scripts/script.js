@@ -199,6 +199,7 @@ const showEditModal = (product, quantity, type) => {
 
     /* Se clicar no botão, chama função para cancelar e fechar o*/
     document.getElementById("cancelModal").addEventListener('click', cancelModal);
+    document.getElementById("closeModal").addEventListener('click', cancelModal);
 
     /* Executa função de edição com valores preenchidos nos campos */
     document.getElementById("confirmModal").addEventListener('click', confirmModal);
@@ -208,6 +209,7 @@ const showEditModal = (product, quantity, type) => {
 /* Função que define ações do botão de cancelar modal de edição*/
 const cancelModal = () => {
     document.getElementById("cancelModal").removeEventListener('click', cancelModal);
+    document.getElementById("closeModal").removeEventListener('click', cancelModal);
     document.getElementById("confirmModal").removeEventListener('click', confirmModal);
 
     modal = document.getElementById("editModal");
@@ -234,6 +236,7 @@ const confirmModal = () => {
         modal.style.display = "none";
 
         document.getElementById("cancelModal").removeEventListener('click', cancelModal);
+        document.getElementById("closeModal").removeEventListener('click', cancelModal);
         document.getElementById("confirmModal").removeEventListener('click', confirmModal);
 
         editingProduct = null;
@@ -244,6 +247,7 @@ const confirmModal = () => {
         modal.style.display = "none";
 
         document.getElementById("cancelModal").removeEventListener('click', cancelModal);
+        document.getElementById("closeModal").removeEventListener('click', cancelModal);
         document.getElementById("confirmModal").removeEventListener('click', confirmModal);
 
         editingProduct = null;
