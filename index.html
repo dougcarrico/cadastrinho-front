@@ -21,8 +21,6 @@
             <img src="images/logo_una.png" width="60px"> <span class="storeName">Cadastro de produtos</span>
         </div>
      </header>
-
-     <div></div>
      
      <!-- Campos para adição de um novo produto -->
      <section class="addProduct">
@@ -58,13 +56,15 @@
             </div>
 
             <div class="modal-body">
-                <input type="text" id="editNameInput" placeholder="Nome">
-                <input type="number" id="editQuantityInput" placeholder="Quantidade" min="0" step="5">
-                <input type="text" id="editTypeInput" placeholder="Tipo">
+                <div class="edit-input-group">
+                    <input type="text" id="editNameInput" placeholder="Nome">
+                    <input type="number" id="editQuantityInput" placeholder="Quantidade" min="0" step="5">
+                    <input type="text" id="editTypeInput" placeholder="Tipo">
+                </div>
             </div>
 
             <div class="modal-footer">
-                <button id="cancelModal" class="button">Cancelar</button>
+                <button id="cancelModal" class="button button-outline">Cancelar</button>
                 <button id="confirmModal" class="button">Confirmar</button>
             </div>
          </div>

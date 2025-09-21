@@ -41,12 +41,13 @@ Bold = 700; Extrabold = 800; Black = 900;
 }
 
 body {
-    font-family: "Roboto", sans-serif;
+    font-family: "Quicksand", sans-serif;
     font-optical-sizing: auto;
-    font-weight: 400;
+    font-weight: 700;
+    font-size: 14px;
     font-style: normal;
-    font-variation-settings:
-    "wdth" 100;
+    color: var(--brown-2);
+    text-align: left;
     background-color: var(--cream);
 }
 
@@ -150,11 +151,14 @@ input::placeholder{
 table {
     border-collapse: collapse;
     width: 100%;
-    font-family: "Quicksand", sans-serif;
+    
+    font-family: "Roboto", sans-serif;
+    font-size: 16px;
     font-optical-sizing: auto;
-    font-weight: 700;
-    font-size: 14px;
+    font-weight: 400;
     font-style: normal;
+    font-variation-settings:
+    "wdth" 100;
     color: var(--black);
     text-align: left;
 }
@@ -201,7 +205,7 @@ th {
     left: 50%;
     top: 10%;
     transform: translate(-50%, 0);
-    background-color: #fff;
+    background-color: var(--cream);
     margin: 0 auto;
     width: 80%;
     max-width: 600px;
@@ -217,10 +221,17 @@ th {
 
 .modal-body {
     display: flex;
-    padding: 0px 16px;
+    padding: 16px 16px;
 }
 
 .modal-footer {
     display: flex;
     padding: 16px 16px;
+    gap: 8px;
+    justify-content: flex-end;
+}
+
+.edit-input-group {
+    display: flex;
+    gap: 8px;
 }
