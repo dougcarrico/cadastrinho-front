@@ -167,6 +167,7 @@ th,
 td {
     padding: 8px;
     border: 1px solid var(--beige);
+    vertical-align: middle;
 }
 
 th {
@@ -179,12 +180,32 @@ th {
     text-align: left;
 }
 
-.delete-btn {
+#editColumn {
+    width:40px;
+    box-sizing: border-box;
+}
 
+#deleteColumn {
+    width: 40px; 
+    box-sizing: border-box;
+}
+
+.delete-btn {
+    display: flex;
+    cursor: pointer;
 }
 
 .edit-btn {
+    display: flex;
+    cursor: pointer;
+}
 
+.delete-btn > svg, .edit-btn > svg {
+    fill: var(--brown-1);
+}
+
+.delete-btn:hover > svg, .edit-btn:hover > svg {
+    fill: var(--brown-2);
 }
 
 .modalBackdrop {
