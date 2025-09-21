@@ -1,18 +1,9 @@
-/*
-onload = function () {
-    console.log('Página carregada!')
-}
-*/
-
-/*
--------------------------------------------------------- 
-Função para obter a lista de produtos via requisição GET
---------------------------------------------------------
-*/
 let editingProduct;
 
 const getProdutos = () => {
+
     let url = 'http://127.0.0.1:5000/produtos';
+    
     fetch(url, {
         method: 'get',
     })
@@ -34,7 +25,6 @@ const getProduto = (produto) => {
     })
         .then((response) => response.json())
         .then((data) => {
-            console.log(data);
         })
         .catch((error) => {
             console.error('Error:', error);
@@ -75,12 +65,12 @@ Função para inserir botões dinamicamente
 ----------------------------------------
 */
 const insertButton = (parent, action, textNode, productName, productQuantity, productType) => {
+
     let div = document.createElement("div");
-    /*let txt = document.createTextNode(textNode);*/
+
     const editSvgCode = '<svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#1f1f1f"><path d="M200-200h57l391-391-57-57-391 391v57Zm-80 80v-170l528-527q12-11 26.5-17t30.5-6q16 0 31 6t26 18l55 56q12 11 17.5 26t5.5 30q0 16-5.5 30.5T817-647L290-120H120Zm640-584-56-56 56 56Zm-141 85-28-29 57 57-29-28Z"/></svg>'
     const deleteSvgCode = '<svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#1f1f1f"><path d="M280-120q-33 0-56.5-23.5T200-200v-520h-40v-80h200v-40h240v40h200v80h-40v520q0 33-23.5 56.5T680-120H280Zm400-600H280v520h400v-520ZM360-280h80v-360h-80v360Zm160 0h80v-360h-80v360ZM280-720v520-520Z"/></svg>'
     
-    /*span.appendChild(txt);*/
     parent.appendChild(div);
 
     if (action == 'delete'){
@@ -103,6 +93,7 @@ Função para adicionar produtos no banco de dados via requisição post
 --------------------------------------------------------------------
 */
 const postProduct = (name, quantity, type) => {
+
     const formData = new FormData();
     formData.append('nome', name);
     formData.append('quantidade', quantity);
@@ -126,14 +117,11 @@ const postProduct = (name, quantity, type) => {
     })
         .then((data) => {
             if (responseOk) {
-                console.log("Status 200");
                 insertList(data.nome, data.quantidade, data.tipo, data.data_atualizacao);
                 showToast('success', 'Produto cadastrado com sucesso!');
             }   
             else {
-                console.log("Outro status");
                 showToast('error', 'Houve um erro ao cadastrar o produto!');
-
             }    
         })
         .catch((error) => {
@@ -142,6 +130,7 @@ const postProduct = (name, quantity, type) => {
 }
 
 const newProduct = () => {
+
     let name = document.getElementById("productNameInput").value;
     let quantity = document.getElementById("productQuantityInput").value;
     let type = document.getElementById("productTypeInput").value;
@@ -150,7 +139,6 @@ const newProduct = () => {
     name = name.trim();
     type = type.trim();
 
-    console.log(`,${name},` + " " + quantity + " " + type)
     if (name === "") {
         alert("Não é possível adicionar um produto sem nome!")
     }
@@ -166,32 +154,33 @@ const newProduct = () => {
 }
 
 const refreshList = () => {
+
     const productList = document.querySelectorAll('.productRow');
     productList.forEach(item => {
         item.remove();
     })
+
     getProdutos();
 }
 
 const deleteProduct = (product) => {
-    console.log(`produto ${product} deletado!`);
 
     let url = `http://127.0.0.1:5000/produto?nome=${product}`;
+
     fetch(url, {
         method: 'delete',
     })
         .then((response) => response.json())
         .then((data) => {
+
             if (data.message == 'Produto Removido') {
-                console.log("mensagem aqui")
                 refreshList();
                 showToast('success', 'Produto removido com sucesso!');
             }
-            console.log(data);
+
         })
         .catch((error) => {
             console.error('Error:', error);
-            showToast('error', 'Houve um erro ao remover o produto!');
         })
 }
 
@@ -199,7 +188,6 @@ const deleteProduct = (product) => {
 const showEditModal = (product, quantity, type) => {
 
     editingProduct = product;
-    console.log("editando " + editingProduct);
 
     /* Exibe modal */
     modal = document.getElementById("editModal");
@@ -226,6 +214,7 @@ const showEditModal = (product, quantity, type) => {
 
 /* Função que define ações do botão de cancelar modal de edição*/
 const cancelModal = () => {
+
     document.getElementById("cancelModal").removeEventListener('click', cancelModal);
     document.getElementById("closeModal").removeEventListener('click', cancelModal);
     document.getElementById("confirmModal").removeEventListener('click', confirmModal);
@@ -236,6 +225,7 @@ const cancelModal = () => {
 
 /* Função que define ações do botão de confirmar modal de edição*/
 const confirmModal = () => {
+
     let name = document.getElementById("editNameInput").value;
     let quantity = document.getElementById("editQuantityInput").value;
     let type = document.getElementById("editTypeInput").value;
@@ -243,7 +233,6 @@ const confirmModal = () => {
     name = name.trim();
     type = type.trim();
 
-    console.log(`,${name},` + " " + quantity + " " + type)
     if (name === "") {
         alert("O produto precisa ter nome!")
     }
@@ -270,8 +259,6 @@ const confirmModal = () => {
 
         editingProduct = null;
     }
-
-    /*putProduct(oldName, name, quantity, type);*/
     
 }
 
@@ -289,15 +276,18 @@ const putProduct = (oldName, name, quantity, type) => {
     })
         .then((response) => response.json())
         .then((data) => {
-            console.log(data);
+
             if (data.message == "Produto atualizado!") {
                 refreshList();
                 showToast('success', 'Produto editado com sucesso!');
             }
+
         })
         .catch((error) => {
+
             console.error('Error:', error);
             showToast('error', 'Houve um erro ao editar o produto');
+
         })
 }
 
@@ -309,7 +299,6 @@ const showToast = (status, message, timeout = 5000) => {
 
     parent = document.getElementById("toastWrapper");
 
-    console.log(parent);
     parent.innerHTML=toastTemplate;
 
     setTimeout(closeToast, timeout);
@@ -317,13 +306,11 @@ const showToast = (status, message, timeout = 5000) => {
 }
 
 const closeToast = () => {
+
     if (document.getElementById("toast")) {
         document.getElementById("toast").remove();
     }
 
 }
-
-const controller = new AbortController();
-const signal = controller.signal;
 
 getProdutos();
