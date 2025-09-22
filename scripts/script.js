@@ -311,20 +311,36 @@ const putProduct = (oldName, name, quantity, type) => {
     formData.append('quantidade_nova', quantity);
     formData.append('tipo_novo', type);
 
+    let responseData;
+    let responseStatus;
+    let responseOk;
+
     let url = 'http://127.0.0.1:5000/produto';
+
     fetch(url, {
         method: 'put',
         body: formData
     })
-        .then((response) => response.json())
+        .then((response) => {
+            responseData = response.json();
+            responseStatus = response.status;
+            responseOk = response.ok;
+
+            return responseData
+        })
+
         .then((data) => {
 
-            if (data.message == "Produto atualizado!") {
+            if (responseOk) {
                 refreshList();
                 showToast('success', 'Produto editado com sucesso!');
             }
+            else {
+                showToast('error', 'Houve um erro ao editar o produto!');
+            }  
 
         })
+
         .catch((error) => {
 
             console.error('Error:', error);
