@@ -1,4 +1,5 @@
 let editingProduct;
+let toasts = [];
 
 const getProdutos = () => {
 
@@ -351,14 +352,21 @@ const putProduct = (oldName, name, quantity, type) => {
 
 const showToast = (status, message, timeout = 5000) => {
 
+    let toastID = toasts.length + 1;
+    toasts.push({toastID, message});
+
+    console.log("toastslength= " + toasts.length)
+    console.log("toastID= "+ toastID);
+    console.log(toasts);
+
+
     let toastTemplate = `   <div id="toast" class="toast-${status}">
                                 <span>${message}</span>
                             </div>`
 
     parent = document.getElementById("toastWrapper");
 
-
-    parent.innerHTML=toastTemplate;
+    parent.innerHTML = toastTemplate;
 
     setTimeout(closeToast, timeout);
     
