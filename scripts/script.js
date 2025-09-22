@@ -34,7 +34,7 @@ const getProdutos = () => {
             
             else {
                 showToast('error', 'Houve um erro ao listar os produtos!');
-            }    
+            }
         })
 
         .catch((error) => console.error('Error:', error))
@@ -167,7 +167,7 @@ const newProduct = () => {
     type = type.trim();
 
     if (name === "") {
-        alert("Não é possível adicionar um produto sem nome!")
+        showToast('error', 'O produto precisa ter nome!');
     }
     else if (quantity < 0 || quantity === "") {
         quantity = 0;
@@ -277,7 +277,7 @@ const confirmModal = () => {
     type = type.trim();
 
     if (name === "") {
-        alert("O produto precisa ter nome!")
+        showToast('error', 'O produto precisa ter nome!');
     }
     else if (quantity < 0 || quantity === "") {
         quantity = 0;
