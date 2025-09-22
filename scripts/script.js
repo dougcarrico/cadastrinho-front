@@ -3,16 +3,41 @@ let editingProduct;
 const getProdutos = () => {
 
     let url = 'http://127.0.0.1:5000/produtos';
+
+    let responseData;
+    let responseStatus;
+    let responseOk;
     
     fetch(url, {
         method: 'get',
     })
-        .then((response) => response.json())
-        .then((data) => {
-            data.produtos.forEach(element => insertList(element.nome, element.quantidade, element.tipo, element.data_atualizacao));
+        .then((response) => {
+            
+            responseData = response.json();
+            responseStatus = response.status;
+            responseOk = response.ok;
+
+        return responseData
+
         })
+
+        .then((data) => {     
+            
+            if (responseOk) {
+                data.produtos.forEach(element => insertList(element.nome, element.quantidade, element.tipo, element.data_atualizacao));
+                showToast('success', 'Lista de produtos atualizada com sucesso!', 3000);
+            }   
+            
+            else {
+                showToast('error', 'Houve um erro ao listar os produtos!');
+            }    
+
+        })
+
         .catch((error) => {
+
             console.error('Error:', error);
+
         })
 
 }
@@ -298,6 +323,7 @@ const showToast = (status, message, timeout = 5000) => {
                             </div>`
 
     parent = document.getElementById("toastWrapper");
+
 
     parent.innerHTML=toastTemplate;
 
