@@ -193,18 +193,34 @@ const deleteProduct = (product) => {
 
     let url = `http://127.0.0.1:5000/produto?nome=${product}`;
 
+    let responseData;
+    let responseStatus;
+    let responseOk;
+
     fetch(url, {
         method: 'delete',
     })
-        .then((response) => response.json())
+        .then((response) => {
+
+            responseData = response.json();
+            responseStatus = response.status;
+            responseOk = response.ok;
+
+            return responseData
+        })
+
         .then((data) => {
 
-            if (data.message == 'Produto Removido') {
+            if (responseOk) {
                 refreshList();
                 showToast('success', 'Produto removido com sucesso!');
             }
+            else {
+                showToast('error', 'Houve um erro remover o produto!');
+            }   
 
         })
+
         .catch((error) => {
             console.error('Error:', error);
         })
