@@ -17,28 +17,26 @@ const getProdutos = () => {
             responseStatus = response.status;
             responseOk = response.ok;
 
-        return responseData
+            return responseData
 
         })
 
         .then((data) => {     
             
             if (responseOk) {
+
                 data.produtos.forEach(element => insertList(element.nome, element.quantidade, element.tipo, element.data_atualizacao));
+
                 showToast('success', 'Lista de produtos atualizada com sucesso!', 3000);
+
             }   
             
             else {
                 showToast('error', 'Houve um erro ao listar os produtos!');
             }    
-
         })
 
-        .catch((error) => {
-
-            console.error('Error:', error);
-
-        })
+        .catch((error) => console.error('Error:', error))
 
 }
 
@@ -49,6 +47,7 @@ const getProduto = (produto) => {
         method: 'get',
     })
         .then((response) => response.json())
+        
         .then((data) => {
         })
         .catch((error) => {
@@ -70,13 +69,15 @@ const insertList = (name, quantity, type, lastUpdate) => {
 
     /*Popula tabela*/
     for (let i = 0; i < product.length; i++) {
+
         let cel = row.insertCell(i);
         cel.textContent = product[i];
+        
     }
 
     /*insere células com botões de editar e deletar no final das linhas da tabela*/
-    insertButton(row.insertCell(-1), "edit", "Editar", name, quantity, type)
-    insertButton(row.insertCell(-1), "delete", "Excluir", name)
+    insertButton(row.insertCell(-1), "edit", name, quantity, type)
+    insertButton(row.insertCell(-1), "delete", name)
 
     /*Limpa inputs de adição de produtos*/
     document.getElementById("productNameInput").value = "";
@@ -89,7 +90,7 @@ const insertList = (name, quantity, type, lastUpdate) => {
 Função para inserir botões dinamicamente
 ----------------------------------------
 */
-const insertButton = (parent, action, textNode, productName, productQuantity, productType) => {
+const insertButton = (parent, action, productName, productQuantity, productType) => {
 
     let div = document.createElement("div");
 
