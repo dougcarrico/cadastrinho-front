@@ -376,10 +376,6 @@ const showToast = (status, message, timeout = 5000) => {
     let toastID = toasts.length;
     toasts.push({toastID, message});
 
-    console.log("toastslength= " + toasts.length)
-    console.log("toastID= "+ toastID);
-    console.log(toasts);
-
     /* Define atributos do toast e seu conteúdo */
     let toastDiv = document.createElement('div');
     toastDiv.id = `toast${toastID}`;
@@ -396,10 +392,10 @@ const showToast = (status, message, timeout = 5000) => {
 }
 
 const closeToast = (toastID) => {
-
+    /* Seleciona o toast*/
     toast = document.getElementById(`toast${toastID}`);
-    console.log(toast)
 
+    /* Remove o toast se ele existir*/
     if (toast) {
         toast.remove();
     }
