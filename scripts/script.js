@@ -144,7 +144,7 @@ const postProduct = (name, quantity, type) => {
     })
         .then((data) => {
             if (responseOk) {
-                insertList(data.nome, data.quantidade, data.tipo, data.data_atualizacao);
+                refreshList();
                 showToast('success', 'Produto cadastrado com sucesso!');
             }
             else if (!isNaN(parseInt(name))) {
