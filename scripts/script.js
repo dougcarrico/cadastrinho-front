@@ -352,30 +352,36 @@ const putProduct = (oldName, name, quantity, type) => {
 
 const showToast = (status, message, timeout = 5000) => {
 
-    let toastID = toasts.length + 1;
+    /* Adiciona o toast na lista de toasts ativos */
+    let toastID = toasts.length;
     toasts.push({toastID, message});
 
     console.log("toastslength= " + toasts.length)
     console.log("toastID= "+ toastID);
     console.log(toasts);
 
+    /* Define atributos do toast e seu conteúdo */
+    let toastDiv = document.createElement('div');
+    toastDiv.id = `toast${toastID}`;
+    toastDiv.className = `toast-${status}`;
+    let toastContent = `<span>${message}</span>`
 
-    let toastTemplate = `   <div id="toast" class="toast-${status}">
-                                <span>${message}</span>
-                            </div>`
-
+    /* Adiciona toast no local con os atributos e conteúdo definidos */
     parent = document.getElementById("toastWrapper");
+    parent.appendChild(toastDiv);
+    toastDiv.innerHTML = toastContent;
 
-    parent.innerHTML = toastTemplate;
-
-    setTimeout(closeToast, timeout);
+    setTimeout(closeToast, timeout, toastID);
     
 }
 
-const closeToast = () => {
+const closeToast = (toastID) => {
 
-    if (document.getElementById("toast")) {
-        document.getElementById("toast").remove();
+    toast = document.getElementById(`toast${toastID}`);
+    console.log(toast)
+
+    if (toast) {
+        toast.remove();
     }
 
 }

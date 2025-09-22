@@ -49,6 +49,8 @@ body {
     color: var(--brown-2);
     text-align: left;
     background-color: var(--cream);
+    margin: 0;
+    padding: 0px 16px 16px 16px;
 }
 
 .button {
@@ -285,11 +287,15 @@ th {
 
 #toastWrapper {
     position: fixed;
-    top: 8px;
+    bottom: -32px;
     left: 0;
     width: 100%;
     display: flex;
     justify-content: center;
+    flex-direction: column;
+    gap: 8px;
+    padding: 16px 16px;
+    box-sizing: border-box;
 }
 
 .toast-success {
@@ -297,6 +303,7 @@ th {
     color: var(--white);
     padding: 16px;
     border-radius: 8px;
+    transform: translateY(-32px);
 }
 
 .toast-error {
@@ -304,4 +311,5 @@ th {
     color: var(--white);
     padding: 16px;
     border-radius: 8px;
+    transform: translateY(-32px);
 }
