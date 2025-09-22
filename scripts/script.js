@@ -146,7 +146,16 @@ const postProduct = (name, quantity, type) => {
             if (responseOk) {
                 insertList(data.nome, data.quantidade, data.tipo, data.data_atualizacao);
                 showToast('success', 'Produto cadastrado com sucesso!');
-            }   
+            }
+            else if (!isNaN(parseInt(name))) {
+                showToast('error', 'O nome não pode ser um número!');
+            }
+            else if (data.message && data.message == "Erro de integridade: UNIQUE constraint failed: produto.nome") {
+                showToast('error', 'O produto já existe!');
+            }
+            else if (!isNaN(parseInt(type))) {
+                showToast('error', 'O tipo não pode ser um número!');
+            }  
             else {
                 showToast('error', 'Houve um erro ao cadastrar o produto!');
             }    
@@ -279,6 +288,7 @@ const confirmModal = () => {
     if (name === "") {
         showToast('error', 'O produto precisa ter nome!');
     }
+
     else if (quantity < 0 || quantity === "") {
         quantity = 0;
         putProduct(editingProduct, name, quantity, type);
@@ -336,6 +346,16 @@ const putProduct = (oldName, name, quantity, type) => {
                 refreshList();
                 showToast('success', 'Produto editado com sucesso!');
             }
+
+            else if (!isNaN(parseInt(name))) {
+                showToast('error', 'Erro ao editar o produto. O nome não pode ser um número!');
+            }
+            else if (data.message && data.message == "Erro de integridade: UNIQUE constraint failed: produto.nome") {
+                showToast('error', 'Erro ao editar o produto. O nome escolhido já existe!');
+            }
+            else if (!isNaN(parseInt(type))) {
+                showToast('error', 'Erro ao editar o produto. O tipo não pode ser um número!');
+            }  
             else {
                 showToast('error', 'Houve um erro ao editar o produto!');
             }  
