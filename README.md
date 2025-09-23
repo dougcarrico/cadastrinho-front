@@ -4,13 +4,11 @@ Este é o front-end do projeto de MVP para a Sprint de "Desenvolvimento Full Sta
 O projeto tem como objetivo ser uma aplicação de cadastro de produtos para a loja de produtos holísticos "Una - Loja Holística".
 Como parte do para criação do MVP, foi feita uma entrevista com a dona da loja, minha esposa, para definir os requisitos iniciais da primeira versão da aplicação, alinhando necessidades da loja com os requisitos do MVP da sprint.
 
-> [!IMPORTANTE]
-> Para o front-end da aplicação funcionar corretamente, o back-end precisa estar executando. Para isso, acesse ["cadastrinho-back"](https://github.com/dougcarrico/cadastrinho-back/).
-
 ## Como executar
 
-- Clonar o repositório
-- Acessar o diretório diretório raiz e clicar duas vezes no arquivo index.html.
+- Para o front-end da aplicação funcionar corretamente, o back-end precisa estar executando. Para isso, acesse ["cadastrinho-back"](https://github.com/dougcarrico/cadastrinho-back/).
+- Clonar ou baixar o repositório em sua máquina
+- Acessar o diretório raiz e clicar duas vezes no arquivo index.html.
 
 ## Próximos passos
 
