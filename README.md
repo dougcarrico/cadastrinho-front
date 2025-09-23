@@ -5,7 +5,7 @@ O projeto tem como objetivo ser uma aplicação de cadastro de produtos para a l
 Como parte do para criação do MVP, foi feita uma entrevista com a dona da loja, minha esposa, para definir os requisitos iniciais da primeira versão da aplicação, alinhando necessidades da loja com os requisitos do MVP da sprint.
 
 > [!IMPORTANTE]
-> Para o front-end da aplicação funcionar corretamente, o back-end precisa estar executando. Para isso, acesse ["cadastrinho-back"](https://github.com/dougcarrico/cadastrinho-back/).
+> Para o front-end da aplicação funcionar corretamente, o back-end precisa estar executando. Acesse ["cadastrinho-back"](https://github.com/dougcarrico/cadastrinho-back/) para clonar e executar o back-end.
 
 ## Como executar
 
