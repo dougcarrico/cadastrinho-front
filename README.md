@@ -5,10 +5,9 @@ Como parte do estudo, foi feita uma entrevista com a dona da loja, minha esposa,
 
 ## Como executar
 
-- Para o front-end da aplicação funcionar corretamente, primeiro é preciso clonar o repositório ["cadastrinho-back"](https://github.com/dougcarrico/cadastrinho-back/) e seguir os passos de execução antes de seguir os passos abaixo.
+> [!IMPORTANT]
+> Para o front-end da aplicação funcionar corretamente, primeiro é preciso clonar o repositório ["cadastrinho-back"](https://github.com/dougcarrico/cadastrinho-back/) e seguir os passos de execução antes de seguir os passos abaixo.
+
 - Clonar o repositório
 - Acessar o diretório app_front
 - Clicar duas vezes no arquivo index.html. Para que a aplicação funcione completamente, é preciso instalar
-
-> [!IMPORTANT]
-> Key information users need to know to achieve their goal.
