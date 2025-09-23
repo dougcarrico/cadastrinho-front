@@ -9,3 +9,6 @@ Como parte do estudo, foi feita uma entrevista com a dona da loja, minha esposa,
 - Clonar o repositório
 - Acessar o diretório app_front
 - Clicar duas vezes no arquivo index.html. Para que a aplicação funcione completamente, é preciso instalar
+
+> [!IMPORTANT]
+> Key information users need to know to achieve their goal.
