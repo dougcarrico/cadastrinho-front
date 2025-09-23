@@ -150,7 +150,7 @@ const postProduct = (name, quantity, type) => {
             else if (!isNaN(parseInt(name))) {
                 showToast('error', 'O nome não pode ser um número!');
             }
-            else if (data.message && data.message == "Erro de integridade: UNIQUE constraint failed: produto.nome") {
+            else if (data.mensagem && data.mensagem == "Erro de integridade: UNIQUE constraint failed: produto.nome") {
                 showToast('error', 'O produto já existe!');
             }
             else if (!isNaN(parseInt(type))) {
@@ -350,7 +350,7 @@ const putProduct = (oldName, name, quantity, type) => {
             else if (!isNaN(parseInt(name))) {
                 showToast('error', 'Erro ao editar o produto. O nome não pode ser um número!');
             }
-            else if (data.message && data.message == "Erro de integridade: UNIQUE constraint failed: produto.nome") {
+            else if (data.mensagem && data.mensagem == "Erro de integridade: UNIQUE constraint failed: produto.nome") {
                 showToast('error', 'Erro ao editar o produto. O nome escolhido já existe!');
             }
             else if (!isNaN(parseInt(type))) {
