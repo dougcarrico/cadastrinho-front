@@ -3,6 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Recomendação da google para uso em modo desenvolvimento e testes com localhost -->
+    <meta name="referrer" content="no-referrer-when-downgrade" />
     
     <!-- Importanto Fontes -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -20,6 +23,8 @@
         <div class="title">
             <img src="images/logo_una.png" width="60px"> <span class="storeName">Cadastro de produtos</span>
         </div>
+
+        <button onclick="getCep()" class="button">CEP</button>
      </header>
      
      <!-- Campos para adição de um novo produto -->
@@ -76,6 +81,9 @@
     
 
     <script src="scripts/script.js"></script>
+
+    <!-- Carregar client library da Google Identity Services -->
+     <script src="https://accounts.google.com/gsi/client" async></script>
 
 </body>
 </html>

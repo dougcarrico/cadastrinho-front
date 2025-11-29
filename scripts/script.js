@@ -1,6 +1,8 @@
 let editingProduct;
 let toasts = [];
 
+
+
 const getProdutos = () => {
 
     let url = 'http://127.0.0.1:5000/produtos';
@@ -399,6 +401,47 @@ const closeToast = (toastID) => {
     if (toast) {
         toast.remove();
     }
+
+}
+
+/* teste api https://brasilapi.com.br/docs#tag/CEP-V2 */
+
+const getCep = () => {
+
+    let url = 'https://brasilapi.com.br/api/cep/v2/24241265';
+
+    let responseData;
+    let responseStatus;
+    let responseOk;
+    
+    fetch(url, {
+        method: 'get',
+    })
+        .then((response) => {
+            
+            responseData = response.json();
+            responseStatus = response.status;
+            responseOk = response.ok;
+
+            return responseData
+
+        })
+
+        .then((data) => {     
+            
+            if (responseOk) {
+
+                console.log(`CEP = ${data.cep}\nestado = ${data.state}\ncidade = ${data.city}\nbairro = ${data.neighborhood}\nrua=${data.street}`);
+                console.log(`Localizacao: tipo = ${data.location.type}`);
+                console.log(`Longitude = ${data.location.coordinates.longitude}\nLatitude = ${data.location.coordinates.latitude}`);
+            }   
+            
+            else {
+                showToast('error', 'Houve um erro ao consultar o cep!');
+            }
+        })
+
+        .catch((error) => console.error('Error:', error))
 
 }
 
