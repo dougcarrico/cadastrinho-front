@@ -404,19 +404,32 @@ const closeToast = (toastID) => {
 
 }
 
-/* teste api https://brasilapi.com.br/docs#tag/CEP-V2 */
+const postShippingCalculate= () => {
 
-const getCep = () => {
+    let url = 'http://127.0.0.1:5000/shipping_calculate';
+    let from_postal_code = "'24241265'";
+    let to_postal_code = "'22451900'";
+    let package_height = 4;
+    let package_width = 12;
+    let package_lenght = 17;
+    let package_weight = 0.3;
 
-    let url = 'https://brasilapi.com.br/api/cep/v2/24241265';
+    const formData = new FormData();
+    formData.append('from_postal_code', from_postal_code);
+    formData.append('to_postal_code', to_postal_code);
+    formData.append('package_height', package_height);
+    formData.append('package_width', package_width);
+    formData.append('package_lenght', package_lenght);
+    formData.append('package_weight', package_weight);
 
     let responseData;
     let responseStatus;
     let responseOk;
     
     fetch(url, {
-        method: 'get',
-    })
+        method: 'POST',
+        body: formData
+  })
         .then((response) => {
             
             responseData = response.json();
@@ -431,13 +444,11 @@ const getCep = () => {
             
             if (responseOk) {
 
-                console.log(`CEP = ${data.cep}\nestado = ${data.state}\ncidade = ${data.city}\nbairro = ${data.neighborhood}\nrua=${data.street}`);
-                console.log(`Localizacao: tipo = ${data.location.type}`);
-                console.log(`Longitude = ${data.location.coordinates.longitude}\nLatitude = ${data.location.coordinates.latitude}`);
+                console.log(`${data[0]}`);
             }   
             
             else {
-                showToast('error', 'Houve um erro ao consultar o cep!');
+                showToast('error', 'Houve um erro no calculo do frete!');
             }
         })
 
