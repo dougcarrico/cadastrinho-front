@@ -23,8 +23,6 @@
         <div class="title">
             <img src="images/logo_una.png" width="60px"> <span class="storeName">Cadastro de produtos</span>
         </div>
-
-        <button onclick="postShippingCalculate()" class="button">Calculo de Frete</button>
      </header>
      
      <!-- Campos para adição de um novo produto -->
@@ -46,6 +44,20 @@
                 <th id="lastUpdateColumn">Última atualização</th>
                 <th id="editColumn"></th>
                 <th id="deleteColumn"></th>
+            </tr>
+        </table>
+     </section>
+
+     <!-- Tabela de Calculo de Frete-->
+     <section>
+        <button onclick="postShippingCalculate()" class="button">Calculo de Frete</button>
+        <table id="shippingCalculateTable">
+            <tr>
+                <th id="companyPicture"></th>
+                <th id="company">Transportadora</th>
+                <th id="shippingMode">Modalidade de frete</th>
+                <th id="price">Valor estimado do frete</th>
+                <th id="deliveryTime">Prazo estimado</th>
             </tr>
         </table>
      </section>

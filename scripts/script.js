@@ -408,7 +408,7 @@ const postShippingCalculate= () => {
 
     let url = 'http://127.0.0.1:5000/shipping_calculate';
     let from_postal_code = "'24241265'";
-    let to_postal_code = "'22451900'";
+    let to_postal_code = "'01311000'";
     let package_height = 4;
     let package_width = 12;
     let package_lenght = 17;
@@ -444,7 +444,16 @@ const postShippingCalculate= () => {
             
             if (responseOk) {
 
-                console.log(`${data[0]}`);
+                data.forEach(element => {
+                    
+                    if (element.custom_price){
+                    insertShippingCalculateTable(element.company.picture, element.company.name, element.name, element.custom_price, element.custom_delivery_time)
+                    }
+
+                });
+
+                showToast('success', 'Lista de produtos atualizada com sucesso!', 3000);
+
             }   
             
             else {
@@ -454,6 +463,37 @@ const postShippingCalculate= () => {
 
         .catch((error) => console.error('Error:', error))
 
+}
+
+/*
+------------------------------------------------------------------- 
+Função para exibir na interface os produtos já cadastrados no banco
+-------------------------------------------------------------------
+*/
+const insertShippingCalculateTable = (companyPicture, company, shippingMode, price, deliveryTime) => {
+    
+    let companyImgCelContent = `<img src=${companyPicture} width=100px alt=${company}>`;
+
+    let shippingInformation = [companyImgCelContent, company, shippingMode, price, `${deliveryTime} dias úteis`];
+    let table = document.getElementById('shippingCalculateTable');
+    let row = table.insertRow();
+    row.className = 'shippingInformationRow';
+
+
+    /*Popula tabela*/
+
+    for (let i = 0; i < shippingInformation.length; i++) {
+        let cel = row.insertCell(i);
+
+        if (i == 0){
+            cel.innerHTML = shippingInformation[0];
+        }
+
+        else {
+            cel.textContent = shippingInformation[i];
+        }
+        
+    }
 }
 
 getProdutos();
