@@ -1,8 +1,6 @@
 let editingProduct;
 let toasts = [];
 
-
-
 const getProdutos = () => {
 
     let url = 'http://127.0.0.1:5000/produtos';
@@ -404,15 +402,42 @@ const closeToast = (toastID) => {
 
 }
 
-const postShippingCalculate= () => {
+const validateShippingCalculateInputs = () => {
+    let from_postal_code = document.getElementById("fromPostalCode").value;
+    let to_postal_code = document.getElementById("toPostalCode").value;
+    let package_height = document.getElementById("packageHeight").value;
+    let package_width = document.getElementById("packageWidth").value;
+    let package_lenght = document.getElementById("packageLenght").value;
+    let package_weight = document.getElementById("packageWeight").value;
+
+    if (from_postal_code == "" || 
+        to_postal_code == "" || 
+        package_height == "" ||
+        package_width == "" ||
+        package_lenght == "" ||
+        package_weight == ""
+    ) {
+        showToast('error', 'Você precisa preencher todos os campos!');
+    }
+    else {
+        postShippingCalculate();
+    }
+
+}
+
+const postShippingCalculate = () => {
 
     let url = 'http://127.0.0.1:5000/shipping_calculate';
-    let from_postal_code = "'24241265'";
-    let to_postal_code = "'01311000'";
-    let package_height = 4;
-    let package_width = 12;
-    let package_lenght = 17;
-    let package_weight = 0.3;
+
+    let from_postal_code = document.getElementById("fromPostalCode").value;
+    let to_postal_code = document.getElementById("toPostalCode").value;
+    let package_height = document.getElementById("packageHeight").value;
+    let package_width = document.getElementById("packageWidth").value;
+    let package_lenght = document.getElementById("packageLenght").value;
+    let package_weight = document.getElementById("packageWeight").value;
+
+    /*certifica de trocar o separador , para . */
+    package_weight = package_weight.replace(/,/g, '.');
 
     const formData = new FormData();
     formData.append('from_postal_code', from_postal_code);
@@ -425,11 +450,11 @@ const postShippingCalculate= () => {
     let responseData;
     let responseStatus;
     let responseOk;
-    
+
     fetch(url, {
         method: 'POST',
         body: formData
-  })
+    })
         .then((response) => {
             
             responseData = response.json();
@@ -444,15 +469,17 @@ const postShippingCalculate= () => {
             
             if (responseOk) {
 
+                refreshShippingCalculateTable();
+
                 data.forEach(element => {
-                    
+
                     if (element.custom_price){
                     insertShippingCalculateTable(element.company.picture, element.company.name, element.name, element.custom_price, element.custom_delivery_time)
                     }
 
                 });
 
-                showToast('success', 'Lista de produtos atualizada com sucesso!', 3000);
+                showToast('success', 'Cálculo de frete feito com sucesso!', 3000);
 
             }   
             
@@ -461,13 +488,16 @@ const postShippingCalculate= () => {
             }
         })
 
-        .catch((error) => console.error('Error:', error))
+        .catch((error) => {
+            console.error('Error:', error)
+        })
+        
 
 }
 
 /*
 ------------------------------------------------------------------- 
-Função para exibir na interface os produtos já cadastrados no banco
+Função para popular a tabela de calculo de frete
 -------------------------------------------------------------------
 */
 const insertShippingCalculateTable = (companyPicture, company, shippingMode, price, deliveryTime) => {
@@ -478,7 +508,6 @@ const insertShippingCalculateTable = (companyPicture, company, shippingMode, pri
     let table = document.getElementById('shippingCalculateTable');
     let row = table.insertRow();
     row.className = 'shippingInformationRow';
-
 
     /*Popula tabela*/
 
@@ -492,8 +521,22 @@ const insertShippingCalculateTable = (companyPicture, company, shippingMode, pri
         else {
             cel.textContent = shippingInformation[i];
         }
-        
     }
+}
+
+/*
+------------------------------------------------------------------- 
+Função para limpar tabela existente de calculo de frete
+-------------------------------------------------------------------
+*/
+
+const refreshShippingCalculateTable = () => {
+
+    const ShippingCalculateTableList = document.querySelectorAll('.shippingInformationRow');
+    ShippingCalculateTableList.forEach(item => {
+        item.remove();
+    })
+
 }
 
 getProdutos();
