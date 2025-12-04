@@ -22,6 +22,7 @@
      <header>
         <div class="title">
             <img src="images/logo_una.png" width="60px"> <span class="storeName">Cadastro de produtos</span>
+            <button onclick="showShippingCalculateModal ()" class="button">Cálculo de frete</button>
         </div>
      </header>
      
@@ -48,40 +49,6 @@
         </table>
      </section>
 
-     <!-- Tabela de Calculo de Frete-->
-     <section>
-        <div class="shippingCalculateInputGroup">
-            <label for="fromPostalCode">CEP de origem</label>
-            <input type="text" id="fromPostalCode" placeholder="00000-000">
-
-            <label for="toPostalCode">CEP de destino</label>
-            <input type="text" id="toPostalCode" placeholder="00000-000">
-
-            <label for="packageHeight">Altura</label>
-            <input type="number" id="packageHeight" placeholder="4">
-
-            <label for="tpackageWidth">Largura</label>
-            <input type="number" id="packageWidth" placeholder="12">
-
-            <label for="packageLenght">Comprimento</label>
-            <input type="number" id="packageLenght" placeholder="17">
-
-            <label for="packageWeight">Peso</label>
-            <input type="number" id="packageWeight" placeholder="0,3">
-
-            <button onclick="validateShippingCalculateInputs()" class="button">Calcular</button>
-        </div>
-        <table id="shippingCalculateTable">
-            <tr>
-                <th id="companyPicture"></th>
-                <th id="company">Transportadora</th>
-                <th id="shippingMode">Modalidade de frete</th>
-                <th id="price">Valor estimado do frete</th>
-                <th id="deliveryTime">Prazo estimado</th>
-            </tr>
-        </table>
-     </section>
-
      <!-- Modal de edição -->
      <div id="editModal" class="modalBackdrop">
 
@@ -103,6 +70,75 @@
             <div class="modal-footer">
                 <button id="cancelModal" class="button button-outline">Cancelar</button>
                 <button id="confirmModal" class="button">Confirmar</button>
+            </div>
+         </div>
+
+     </div>
+
+     <!-- Modal de calculo de frete -->
+     <div id="shippingCalculateModal" class="modalBackdrop">
+
+        <!-- Conteúdo do modal -->
+         <div class="modal modal-large">
+            <div class="modal-header"> 
+                <span class="modal-title">Cálculo de frete</span> 
+                <span id="closeShippingCalculateModal" class="close-modal-button"><svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#1f1f1f"><path d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z"/></svg></span>
+            </div>
+
+            <div class="modal-body">
+                <div class="shippingCalculateContent">
+                    <div class="shippingCalculateInputGroup">
+
+                        <div class="shippingCalculateField">
+                            <label for="fromPostalCode">CEP de origem</label>
+                            <input type="text" id="fromPostalCode" placeholder="00000-000">
+                        </div>
+
+                        <div class="shippingCalculateField">
+                            <label for="toPostalCode">CEP de destino</label>
+                            <input type="text" id="toPostalCode" placeholder="00000-000">
+                        </div>
+
+                        <div class="shippingCalculateField">
+                            <label for="packageHeight">Altura (cm)</label>
+                            <input type="number" id="packageHeight" placeholder="4" min="0" step="1">
+                        </div>
+
+                        <div class="shippingCalculateField">
+                            <label for="tpackageWidth">Largura (cm)</label>
+                            <input type="number" id="packageWidth" placeholder="12" min="0" step="1">
+                        </div>
+
+                        <div class="shippingCalculateField">
+                            <label for="packageLenght">Comprimento (cm)</label>
+                            <input type="number" id="packageLenght" placeholder="17" min="0" step="1">
+                        </div>
+
+                        <div class="shippingCalculateField">
+                            <label for="packageWeight">Peso (kg)</label>
+                            <input type="number" id="packageWeight" placeholder="0,3" min="0" step=".1">
+                        </div>
+
+                    </div>
+
+                    <div class="buttonWrapper">
+                        <button onclick="validateShippingCalculateInputs()" class="button shippingCalculateButton">Calcular</button>
+                    </div>
+                    
+                    <div class="shippingCalculateTableWrapper">
+                    <!-- Tabela de Calculo de Frete-->
+                        <table id="shippingCalculateTable">
+                            <tr>
+                                <th id="companyPicture"></th>
+                                <th id="company">Transportadora</th>
+                                <th id="shippingMode">Modalidade de frete</th>
+                                <th id="price">Valor estimado do frete</th>
+                                <th id="deliveryTime">Prazo estimado</th>
+                            </tr>
+                        </table>
+                    </div>
+
+                </div>
             </div>
          </div>
 

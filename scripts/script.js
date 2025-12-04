@@ -243,7 +243,7 @@ const showEditModal = (product, quantity, type) => {
 
     /* Exibe modal */
     modal = document.getElementById("editModal");
-    modal.style.display = "block";
+    modal.style.display = "flex";
 
     /* Preenche campos com valores atuais do produto */
     nameInput = document.getElementById("editNameInput");
@@ -501,8 +501,8 @@ Função para popular a tabela de calculo de frete
 -------------------------------------------------------------------
 */
 const insertShippingCalculateTable = (companyPicture, company, shippingMode, price, deliveryTime) => {
-    
-    let companyImgCelContent = `<img src=${companyPicture} width=100px alt=${company}>`;
+
+    let companyImgCelContent = `<img src=${companyPicture} width=60px alt=${company}>`;
 
     let shippingInformation = [companyImgCelContent, company, shippingMode, price, `${deliveryTime} dias úteis`];
     let table = document.getElementById('shippingCalculateTable');
@@ -537,6 +537,27 @@ const refreshShippingCalculateTable = () => {
         item.remove();
     })
 
+}
+
+/* Função que exibe modal de cálculo de frete*/
+const showShippingCalculateModal = () => {
+
+    /* Exibe modal */
+    modal = document.getElementById("shippingCalculateModal");
+    modal.style.display = "flex";
+
+    /* Se clicar no botão, chama função para e fechar o modal de calculo de frete*/
+    document.getElementById("closeShippingCalculateModal").addEventListener('click', closeShippingCalculeteModal);
+
+}
+
+/* Função que define ações do botão de fechar modal de calculo de frete*/
+const closeShippingCalculeteModal = () => {
+
+    document.getElementById("closeShippingCalculateModal").removeEventListener('click', closeShippingCalculeteModal);
+
+    modal = document.getElementById("shippingCalculateModal");
+    modal.style.display = "none";
 }
 
 getProdutos();
