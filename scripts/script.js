@@ -1,9 +1,9 @@
 let editingProduct;
 let toasts = [];
 
-const getProdutos = () => {
+const getProducts = () => {
 
-    let url = 'http://127.0.0.1:5000/produtos';
+    let url = 'http://127.0.0.1:5000/products';
 
     let responseData;
     let responseStatus;
@@ -26,7 +26,7 @@ const getProdutos = () => {
             
             if (responseOk) {
 
-                data.produtos.forEach(element => insertList(element.nome, element.quantidade, element.tipo, element.data_atualizacao));
+                data.products.forEach(element => insertList(element.nome, element.quantidade, element.tipo, element.data_atualizacao));
 
                 showToast('success', 'Lista de produtos atualizada com sucesso!', 3000);
 
@@ -41,9 +41,9 @@ const getProdutos = () => {
 
 }
 
-const getProduto = (produto) => {
+const getProduct = (product) => {
 
-    let url = 'http://127.0.0.1:5000/produto?nome=' + produto;
+    let url = 'http://127.0.0.1:5000/product?nome=' + product;
     fetch(url, {
         method: 'get',
     })
@@ -130,7 +130,7 @@ const postProduct = (name, quantity, type) => {
     let responseStatus;
     let responseOk;
 
-    let url = 'http://127.0.0.1:5000/produto';
+    let url = 'http://127.0.0.1:5000/product';
     fetch(url, {
         method: 'post',
         body: formData
@@ -196,12 +196,12 @@ const refreshList = () => {
         item.remove();
     })
 
-    getProdutos();
+    getProducts();
 }
 
 const deleteProduct = (product) => {
 
-    let url = `http://127.0.0.1:5000/produto?nome=${product}`;
+    let url = `http://127.0.0.1:5000/product?nome=${product}`;
 
     let responseData;
     let responseStatus;
@@ -326,7 +326,7 @@ const putProduct = (oldName, name, quantity, type) => {
     let responseStatus;
     let responseOk;
 
-    let url = 'http://127.0.0.1:5000/produto';
+    let url = 'http://127.0.0.1:5000/product';
 
     fetch(url, {
         method: 'put',
@@ -560,4 +560,4 @@ const closeShippingCalculeteModal = () => {
     modal.style.display = "none";
 }
 
-getProdutos();
+getProducts();
