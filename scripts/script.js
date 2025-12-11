@@ -506,8 +506,14 @@ const insertShippingCalculateTable = (companyPicture, company, shippingMode, pri
 
     let shippingInformation = [companyImgCelContent, company, shippingMode, price, `${deliveryTime} dias úteis`];
     let table = document.getElementById('shippingCalculateTable');
+    let tableWrapper = document.getElementById('shippingCalculateTable');
+
+    /*Exibe a tabela*/
+    tableWrapper.style.display = "table";
+
     let row = table.insertRow();
     row.className = 'shippingInformationRow';
+    
 
     /*Popula tabela*/
 
