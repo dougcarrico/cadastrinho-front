@@ -26,7 +26,7 @@ const getProducts = () => {
             
             if (responseOk) {
 
-                data.products.forEach(element => insertList(element.nome, element.quantidade, element.tipo, element.data_atualizacao));
+                data.products.forEach(element => insertList(element.name, element.quantity, element.type, element.date_updated));
 
                 showToast('success', 'Lista de produtos atualizada com sucesso!', 3000);
 
@@ -43,7 +43,7 @@ const getProducts = () => {
 
 const getProduct = (product) => {
 
-    let url = 'http://127.0.0.1:5000/product?nome=' + product;
+    let url = 'http://127.0.0.1:5000/product?name=' + product;
     fetch(url, {
         method: 'get',
     })
@@ -122,9 +122,9 @@ Função para adicionar produtos no banco de dados via requisição post
 const postProduct = (name, quantity, type) => {
 
     const formData = new FormData();
-    formData.append('nome', name);
-    formData.append('quantidade', quantity);
-    formData.append('tipo', type);
+    formData.append('name', name);
+    formData.append('quantity', quantity);
+    formData.append('type', type);
 
     let responseData;
     let responseStatus;
@@ -150,7 +150,7 @@ const postProduct = (name, quantity, type) => {
             else if (!isNaN(parseInt(name))) {
                 showToast('error', 'O nome não pode ser um número!');
             }
-            else if (data.mensagem && data.mensagem == "Erro de integridade: UNIQUE constraint failed: produto.nome") {
+            else if (data.message && data.message == "Erro de integridade: UNIQUE constraint failed: product.name") {
                 showToast('error', 'O produto já existe!');
             }
             else if (!isNaN(parseInt(type))) {
@@ -201,7 +201,7 @@ const refreshList = () => {
 
 const deleteProduct = (product) => {
 
-    let url = `http://127.0.0.1:5000/product?nome=${product}`;
+    let url = `http://127.0.0.1:5000/product?name=${product}`;
 
     let responseData;
     let responseStatus;
@@ -317,10 +317,10 @@ const confirmModal = () => {
 
 const putProduct = (oldName, name, quantity, type) => {
     const formData = new FormData();
-    formData.append("nome", oldName);
-    formData.append('nome_novo', name);
-    formData.append('quantidade_nova', quantity);
-    formData.append('tipo_novo', type);
+    formData.append("name", oldName);
+    formData.append('new_name', name);
+    formData.append('new_quantity', quantity);
+    formData.append('new_type', type);
 
     let responseData;
     let responseStatus;
@@ -350,7 +350,7 @@ const putProduct = (oldName, name, quantity, type) => {
             else if (!isNaN(parseInt(name))) {
                 showToast('error', 'Erro ao editar o produto. O nome não pode ser um número!');
             }
-            else if (data.mensagem && data.mensagem == "Erro de integridade: UNIQUE constraint failed: produto.nome") {
+            else if (data.message && data.message == "Erro de integridade: UNIQUE constraint failed: product.name") {
                 showToast('error', 'Erro ao editar o produto. O nome escolhido já existe!');
             }
             else if (!isNaN(parseInt(type))) {
