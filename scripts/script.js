@@ -64,7 +64,7 @@ Função para exibir na interface os produtos já cadastrados no banco
 const insertList = (name, quantity, type, lastUpdate) => {
     
     let product = [name, quantity, type, lastUpdate];
-    let table = document.getElementById('productTable');
+    let table = document.getElementById('product-table');
     let row = table.insertRow();
     row.className = 'productRow';
 
@@ -77,13 +77,13 @@ const insertList = (name, quantity, type, lastUpdate) => {
     }
 
     /*insere células com botões de editar e deletar no final das linhas da tabela*/
-    insertButton(row.insertCell(-1), "edit", name, quantity, type)
-    insertButton(row.insertCell(-1), "delete", name)
+    insertProductActionButton(row.insertCell(-1), "edit", name, quantity, type)
+    insertProductActionButton(row.insertCell(-1), "delete", name)
 
     /*Limpa inputs de adição de produtos*/
-    document.getElementById("productNameInput").value = "";
-    document.getElementById("productQuantityInput").value = "";
-    document.getElementById("productTypeInput").value = "";
+    document.getElementById("product-name-input").value = "";
+    document.getElementById("product-quantity-input").value = "";
+    document.getElementById("product-type-input").value = "";
 }
 
 /*
@@ -91,7 +91,7 @@ const insertList = (name, quantity, type, lastUpdate) => {
 Função para inserir botões dinamicamente
 ----------------------------------------
 */
-const insertButton = (parent, action, productName, productQuantity, productType) => {
+const insertProductActionButton = (parent, action, productName, productQuantity, productType) => {
 
     let div = document.createElement("div");
 
@@ -109,7 +109,7 @@ const insertButton = (parent, action, productName, productQuantity, productType)
     if (action == 'edit'){
         div.className = "edit-btn";
         div.innerHTML = editSvgCode;
-        div.addEventListener('click', function(){ showEditModal(productName, productQuantity, productType); });
+        div.addEventListener('click', function(){ showProductEditModal(productName, productQuantity, productType); });
     }
 
 }
@@ -144,7 +144,7 @@ const postProduct = (name, quantity, type) => {
     })
         .then((data) => {
             if (responseOk) {
-                refreshList();
+                refreshProductList();
                 showToast('success', 'Produto cadastrado com sucesso!');
             }
             else if (!isNaN(parseInt(name))) {
@@ -167,9 +167,9 @@ const postProduct = (name, quantity, type) => {
 
 const newProduct = () => {
 
-    let name = document.getElementById("productNameInput").value;
-    let quantity = document.getElementById("productQuantityInput").value;
-    let type = document.getElementById("productTypeInput").value;
+    let name = document.getElementById("product-name-input").value;
+    let quantity = document.getElementById("product-quantity-input").value;
+    let type = document.getElementById("product-type-input").value;
 
     /* Remove espaços em branco do início e do final do nome e tipo antes de enviar para o banco*/
     name = name.trim();
@@ -189,7 +189,7 @@ const newProduct = () => {
 
 }
 
-const refreshList = () => {
+const refreshProductList = () => {
 
     const productList = document.querySelectorAll('.productRow');
     productList.forEach(item => {
@@ -222,7 +222,7 @@ const deleteProduct = (product) => {
         .then((data) => {
 
             if (responseOk) {
-                refreshList();
+                refreshProductList();
                 showToast('success', 'Produto removido com sucesso!');
             }
             else {
@@ -237,50 +237,50 @@ const deleteProduct = (product) => {
 }
 
 /* Função que exibe modal de edição*/
-const showEditModal = (product, quantity, type) => {
+const showProductEditModal = (product, quantity, type) => {
 
     editingProduct = product;
 
     /* Exibe modal */
-    modal = document.getElementById("editModal");
+    modal = document.getElementById("product-edit-modal");
     modal.style.display = "flex";
 
     /* Preenche campos com valores atuais do produto */
-    nameInput = document.getElementById("editNameInput");
+    nameInput = document.getElementById("edit-name-input");
     nameInput.value = product;
 
-    quantityInput = document.getElementById("editQuantityInput");
+    quantityInput = document.getElementById("edit-quantity-input");
     quantityInput.value = quantity;
 
-    typeInput = document.getElementById("editTypeInput");
+    typeInput = document.getElementById("edit-type-input");
     typeInput.value = type;
 
     /* Se clicar no botão, chama função para cancelar e fechar o*/
-    document.getElementById("cancelModal").addEventListener('click', cancelModal);
-    document.getElementById("closeModal").addEventListener('click', cancelModal);
+    document.getElementById("cancel-product-edit-modal").addEventListener('click', cancelProductEditModal);
+    document.getElementById("close-product-edit-modal").addEventListener('click', cancelProductEditModal);
 
     /* Executa função de edição com valores preenchidos nos campos */
-    document.getElementById("confirmModal").addEventListener('click', confirmModal);
+    document.getElementById("confirm-product-edit-modal").addEventListener('click', confirmProductEditModal);
 }
 
 
 /* Função que define ações do botão de cancelar modal de edição*/
-const cancelModal = () => {
+const cancelProductEditModal = () => {
 
-    document.getElementById("cancelModal").removeEventListener('click', cancelModal);
-    document.getElementById("closeModal").removeEventListener('click', cancelModal);
-    document.getElementById("confirmModal").removeEventListener('click', confirmModal);
+    document.getElementById("cancel-product-edit-modal").removeEventListener('click', cancelProductEditModal);
+    document.getElementById("close-product-edit-modal").removeEventListener('click', cancelProductEditModal);
+    document.getElementById("confirm-product-edit-modal").removeEventListener('click', confirmProductEditModal);
 
-    modal = document.getElementById("editModal");
+    modal = document.getElementById("product-edit-modal");
     modal.style.display = "none";
 }
 
 /* Função que define ações do botão de confirmar modal de edição*/
-const confirmModal = () => {
+const confirmProductEditModal = () => {
 
-    let name = document.getElementById("editNameInput").value;
-    let quantity = document.getElementById("editQuantityInput").value;
-    let type = document.getElementById("editTypeInput").value;
+    let name = document.getElementById("edit-name-input").value;
+    let quantity = document.getElementById("edit-quantity-input").value;
+    let type = document.getElementById("edit-type-input").value;
     
     name = name.trim();
     type = type.trim();
@@ -292,23 +292,23 @@ const confirmModal = () => {
     else if (quantity < 0 || quantity === "") {
         quantity = 0;
         putProduct(editingProduct, name, quantity, type);
-        modal = document.getElementById("editModal");
+        modal = document.getElementById("product-edit-modal");
         modal.style.display = "none";
 
-        document.getElementById("cancelModal").removeEventListener('click', cancelModal);
-        document.getElementById("closeModal").removeEventListener('click', cancelModal);
-        document.getElementById("confirmModal").removeEventListener('click', confirmModal);
+        document.getElementById("cancel-product-edit-modal").removeEventListener('click', cancelProductEditModal);
+        document.getElementById("close-product-edit-modal").removeEventListener('click', cancelProductEditModal);
+        document.getElementById("confirm-product-edit-modal").removeEventListener('click', confirmProductEditModal);
 
         editingProduct = null;
     }
     else {
         putProduct(editingProduct, name, quantity, type);
-        modal = document.getElementById("editModal");
+        modal = document.getElementById("product-edit-modal");
         modal.style.display = "none";
 
-        document.getElementById("cancelModal").removeEventListener('click', cancelModal);
-        document.getElementById("closeModal").removeEventListener('click', cancelModal);
-        document.getElementById("confirmModal").removeEventListener('click', confirmModal);
+        document.getElementById("cancel-product-edit-modal").removeEventListener('click', cancelProductEditModal);
+        document.getElementById("close-product-edit-modal").removeEventListener('click', cancelProductEditModal);
+        document.getElementById("confirm-product-edit-modal").removeEventListener('click', confirmProductEditModal);
 
         editingProduct = null;
     }
@@ -343,7 +343,7 @@ const putProduct = (oldName, name, quantity, type) => {
         .then((data) => {
 
             if (responseOk) {
-                refreshList();
+                refreshProductList();
                 showToast('success', 'Produto editado com sucesso!');
             }
 
@@ -383,7 +383,7 @@ const showToast = (status, message, timeout = 5000) => {
     let toastContent = `<span>${message}</span>`
 
     /* Adiciona toast no local con os atributos e conteúdo definidos */
-    parent = document.getElementById("toastWrapper");
+    parent = document.getElementById("toast-wrapper");
     parent.appendChild(toastDiv);
     toastDiv.innerHTML = toastContent;
 
@@ -403,12 +403,12 @@ const closeToast = (toastID) => {
 }
 
 const validateShippingCalculateInputs = () => {
-    let from_postal_code = document.getElementById("fromPostalCode").value;
-    let to_postal_code = document.getElementById("toPostalCode").value;
-    let package_height = document.getElementById("packageHeight").value;
-    let package_width = document.getElementById("packageWidth").value;
-    let package_lenght = document.getElementById("packageLenght").value;
-    let package_weight = document.getElementById("packageWeight").value;
+    let from_postal_code = document.getElementById("from-postal-code").value;
+    let to_postal_code = document.getElementById("to-postal-code").value;
+    let package_height = document.getElementById("package-height").value;
+    let package_width = document.getElementById("package-width").value;
+    let package_lenght = document.getElementById("package-lenght").value;
+    let package_weight = document.getElementById("package-weight").value;
 
     if (from_postal_code == "" || 
         to_postal_code == "" || 
@@ -429,12 +429,12 @@ const postShippingCalculate = () => {
 
     let url = 'http://127.0.0.1:5000/shipping_calculate';
 
-    let from_postal_code = document.getElementById("fromPostalCode").value;
-    let to_postal_code = document.getElementById("toPostalCode").value;
-    let package_height = document.getElementById("packageHeight").value;
-    let package_width = document.getElementById("packageWidth").value;
-    let package_lenght = document.getElementById("packageLenght").value;
-    let package_weight = document.getElementById("packageWeight").value;
+    let from_postal_code = document.getElementById("from-postal-code").value;
+    let to_postal_code = document.getElementById("to-postal-code").value;
+    let package_height = document.getElementById("package-height").value;
+    let package_width = document.getElementById("package-width").value;
+    let package_lenght = document.getElementById("package-lenght").value;
+    let package_weight = document.getElementById("package-weight").value;
 
     /*certifica de trocar o separador , para . */
     package_weight = package_weight.replace(/,/g, '.');
@@ -505,14 +505,14 @@ const insertShippingCalculateTable = (companyPicture, company, shippingMode, pri
     let companyImgCelContent = `<img src=${companyPicture} width=60px alt=${company}>`;
 
     let shippingInformation = [companyImgCelContent, company, shippingMode, price, `${deliveryTime} dias úteis`];
-    let table = document.getElementById('shippingCalculateTable');
-    let tableWrapper = document.getElementById('shippingCalculateTable');
+    let table = document.getElementById('shipping-calculate-table');
+    let tableWrapper = document.getElementById('shipping-calculate-table');
 
     /*Exibe a tabela*/
     tableWrapper.style.display = "table";
 
     let row = table.insertRow();
-    row.className = 'shippingInformationRow';
+    row.className = 'shipping-information-row';
     
 
     /*Popula tabela*/
@@ -538,7 +538,7 @@ Função para limpar tabela existente de calculo de frete
 
 const refreshShippingCalculateTable = () => {
 
-    const ShippingCalculateTableList = document.querySelectorAll('.shippingInformationRow');
+    const ShippingCalculateTableList = document.querySelectorAll('.shipping-information-row');
     ShippingCalculateTableList.forEach(item => {
         item.remove();
     })
@@ -549,20 +549,20 @@ const refreshShippingCalculateTable = () => {
 const showShippingCalculateModal = () => {
 
     /* Exibe modal */
-    modal = document.getElementById("shippingCalculateModal");
+    modal = document.getElementById("shipping-calculate-modal");
     modal.style.display = "flex";
 
     /* Se clicar no botão, chama função para e fechar o modal de calculo de frete*/
-    document.getElementById("closeShippingCalculateModal").addEventListener('click', closeShippingCalculeteModal);
+    document.getElementById("close-shipping-calculate-modal").addEventListener('click', closeShippingCalculeteModal);
 
 }
 
 /* Função que define ações do botão de fechar modal de calculo de frete*/
 const closeShippingCalculeteModal = () => {
 
-    document.getElementById("closeShippingCalculateModal").removeEventListener('click', closeShippingCalculeteModal);
+    document.getElementById("close-shipping-calculate-modal").removeEventListener('click', closeShippingCalculeteModal);
 
-    modal = document.getElementById("shippingCalculateModal");
+    modal = document.getElementById("shipping-calculate-modal");
     modal.style.display = "none";
 }
 

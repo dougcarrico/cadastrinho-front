@@ -21,119 +21,119 @@
     <!-- Cabeçalho do Sistema-->
      <header>
         <div class="title">
-            <img src="images/logo_una.png" width="60px"> <span class="storeName">Cadastro de produtos</span>
+            <img src="images/logo_una.png" width="60px"> <span class="store-name">Cadastro de produtos</span>
             <button onclick="showShippingCalculateModal ()" class="button">Cálculo de frete</button>
         </div>
      </header>
      
      <!-- Campos para adição de um novo produto -->
-     <section class="addProduct">
-        <input type="text" id="productNameInput" placeholder="Nome">
-        <input type="number" id="productQuantityInput" placeholder="Quantidade" min="0" step="5">
-        <input type="text" id="productTypeInput" placeholder="Tipo">
+     <section class="add-product">
+        <input type="text" id="product-name-input" placeholder="Nome">
+        <input type="number" id="product-quantity-input" placeholder="Quantidade" min="0" step="5">
+        <input type="text" id="product-type-input" placeholder="Tipo">
         <button onclick="newProduct()" class="button">Adicionar</button>
-        <button onclick="refreshList()" class="button button-outline">Atualizar</button>
+        <button onclick="refreshProductList()" class="button button-outline">Atualizar</button>
      </section>
 
     <!-- Tabela de produtos-->
      <section>
-        <table id="productTable">
+        <table id="product-table">
             <tr>
-                <th id="nameColumn">Nome</th>
-                <th id="quantityColumn">Quantidade</th>
-                <th id="typeColumn">Tipo</th>
-                <th id="lastUpdateColumn">Última atualização</th>
-                <th id="editColumn"></th>
-                <th id="deleteColumn"></th>
+                <th id="name-column">Nome</th>
+                <th id="quantity-column">Quantidade</th>
+                <th id="type-column">Tipo</th>
+                <th id="last-update-column">Última atualização</th>
+                <th id="edit-column"></th>
+                <th id="delete-column"></th>
             </tr>
         </table>
      </section>
 
      <!-- Modal de edição -->
-     <div id="editModal" class="modalBackdrop">
+     <div id="product-edit-modal" class="modal-backdrop">
 
         <!-- Conteúdo do modal -->
          <div class="modal">
             <div class="modal-header"> 
                 <span class="modal-title">Editar produto</span> 
-                <span id="closeModal" class="close-modal-button"><svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#1f1f1f"><path d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z"/></svg></span>
+                <span id="close-product-edit-modal" class="close-modal-button"><svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#1f1f1f"><path d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z"/></svg></span>
             </div>
 
             <div class="modal-body">
                 <div class="edit-input-group">
-                    <input type="text" id="editNameInput" placeholder="Nome">
-                    <input type="number" id="editQuantityInput" placeholder="Quantidade" min="0" step="5">
-                    <input type="text" id="editTypeInput" placeholder="Tipo">
+                    <input type="text" id="edit-name-input" placeholder="Nome">
+                    <input type="number" id="edit-quantity-input" placeholder="Quantidade" min="0" step="5">
+                    <input type="text" id="edit-type-input" placeholder="Tipo">
                 </div>
             </div>
 
             <div class="modal-footer">
-                <button id="cancelModal" class="button button-outline">Cancelar</button>
-                <button id="confirmModal" class="button">Confirmar</button>
+                <button id="cancel-product-edit-modal" class="button button-outline">Cancelar</button>
+                <button id="confirm-product-edit-modal" class="button">Confirmar</button>
             </div>
          </div>
 
      </div>
 
      <!-- Modal de calculo de frete -->
-     <div id="shippingCalculateModal" class="modalBackdrop">
+     <div id="shipping-calculate-modal" class="modal-backdrop">
 
         <!-- Conteúdo do modal -->
          <div class="modal modal-large">
             <div class="modal-header"> 
                 <span class="modal-title">Cálculo de frete</span> 
-                <span id="closeShippingCalculateModal" class="close-modal-button"><svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#1f1f1f"><path d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z"/></svg></span>
+                <span id="close-shipping-calculate-modal" class="close-modal-button"><svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#1f1f1f"><path d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z"/></svg></span>
             </div>
 
             <div class="modal-body">
-                <div class="shippingCalculateContent">
-                    <div class="shippingCalculateInputGroup">
+                <div class="shipping-calculate-content">
+                    <div class="shipping-calculate-input-group">
 
-                        <div class="shippingCalculateField">
-                            <label for="fromPostalCode">CEP de origem</label>
-                            <input type="text" id="fromPostalCode" placeholder="00000-000">
+                        <div class="shipping-calculate-field">
+                            <label for="from-postal-code">CEP de origem</label>
+                            <input type="text" id="from-postal-code" placeholder="00000-000">
                         </div>
 
-                        <div class="shippingCalculateField">
-                            <label for="toPostalCode">CEP de destino</label>
-                            <input type="text" id="toPostalCode" placeholder="00000-000">
+                        <div class="shipping-calculate-field">
+                            <label for="to-postal-code">CEP de destino</label>
+                            <input type="text" id="to-postal-code" placeholder="00000-000">
                         </div>
 
-                        <div class="shippingCalculateField">
-                            <label for="packageHeight">Altura (cm)</label>
-                            <input type="number" id="packageHeight" placeholder="4" min="0" step="1">
+                        <div class="shipping-calculate-field">
+                            <label for="package-height">Altura (cm)</label>
+                            <input type="number" id="package-height" placeholder="4" min="0" step="1">
                         </div>
 
-                        <div class="shippingCalculateField">
-                            <label for="tpackageWidth">Largura (cm)</label>
-                            <input type="number" id="packageWidth" placeholder="12" min="0" step="1">
+                        <div class="shipping-calculate-field">
+                            <label for="package-width">Largura (cm)</label>
+                            <input type="number" id="package-width" placeholder="12" min="0" step="1">
                         </div>
 
-                        <div class="shippingCalculateField">
-                            <label for="packageLenght">Comprimento (cm)</label>
-                            <input type="number" id="packageLenght" placeholder="17" min="0" step="1">
+                        <div class="shipping-calculate-field">
+                            <label for="package-lenght">Comprimento (cm)</label>
+                            <input type="number" id="package-lenght" placeholder="17" min="0" step="1">
                         </div>
 
-                        <div class="shippingCalculateField">
-                            <label for="packageWeight">Peso (kg)</label>
-                            <input type="number" id="packageWeight" placeholder="0,3" min="0" step=".1">
+                        <div class="shipping-calculate-field">
+                            <label for="package-weight">Peso (kg)</label>
+                            <input type="number" id="package-weight" placeholder="0,3" min="0" step=".1">
                         </div>
 
                     </div>
 
-                    <div class="buttonWrapper">
-                        <button onclick="validateShippingCalculateInputs()" class="button shippingCalculateButton">Calcular</button>
+                    <div class="button-wrapper">
+                        <button onclick="validateShippingCalculateInputs()" class="button shipping-calculate-button">Calcular</button>
                     </div>
                     
-                    <div class="shippingCalculateTableWrapper">
+                    <div class="shipping-calculate-table-wrapper">
                     <!-- Tabela de Calculo de Frete-->
-                        <table id="shippingCalculateTable">
+                        <table id="shipping-calculate-table">
                             <tr>
-                                <th id="companyPicture"></th>
+                                <th id="company-picture"></th>
                                 <th id="company">Transportadora</th>
-                                <th id="shippingMode">Modalidade de frete</th>
+                                <th id="shipping-mode">Modalidade de frete</th>
                                 <th id="price">Valor estimado do frete</th>
-                                <th id="deliveryTime">Prazo estimado</th>
+                                <th id="delivery-time">Prazo estimado</th>
                             </tr>
                         </table>
                     </div>
@@ -144,7 +144,7 @@
 
      </div>
 
-     <div id="toastWrapper">
+     <div id="toast-wrapper">
      </div>
     
 

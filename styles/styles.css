@@ -126,7 +126,7 @@ input::placeholder{
     gap: 16px;
 }
 
-.storeName {
+.store-name {
     font-family: "Quicksand", sans-serif;
     font-optical-sizing: auto;
     font-weight: 700;
@@ -135,21 +135,21 @@ input::placeholder{
     color: var(--brown-2)
 }
 
-.addProduct {
+.add-product {
     padding: 16px 0px;
     display: flex;
     gap: 8px;
 }
 
-#productNameInput {
+#product-name-input {
     width: 100%;
 }
 
-#productQuantityInput {
+#product-quantity-input {
     width: 120px;
 }
 
-#productTypeInput {
+#product-type-input {
     width: 160px;
 }
 
@@ -185,12 +185,12 @@ th {
     text-align: left;
 }
 
-#editColumn {
+#edit-column {
     width:40px;
     box-sizing: border-box;
 }
 
-#deleteColumn {
+#delete-column {
     width: 40px; 
     box-sizing: border-box;
 }
@@ -214,7 +214,7 @@ th {
 }
 
 
-.modalBackdrop {
+.modal-backdrop {
     display: none;
     position: fixed;
     z-index: 1;
@@ -270,15 +270,15 @@ th {
     width: 100%;
 }
 
-#editNameInput {
+#edit-name-input {
     width: 100%;
 }
 
-#editQuantityInput {
+#edit-quantity-input {
     width: 120px;
 }
 
-#editTypeInput {
+#edit-type-input {
     width: 160px;
 }
 
@@ -291,7 +291,7 @@ th {
     cursor: pointer;
 }
 
-#toastWrapper {
+#toast-wrapper {
     position: fixed;
     bottom: -32px;
     left: 0;
@@ -321,7 +321,7 @@ th {
     transform: translateY(-32px);
 }
 
-.shippingCalculateContent {
+.shipping-calculate-content {
     display: flex;
     flex-direction: column;
     width: 100%;
@@ -329,32 +329,32 @@ th {
     justify-content: center;
 }
 
-.shippingCalculateInputGroup {
+.shipping-calculate-input-group {
     display: flex;
     flex-wrap: wrap;
     gap: 16px;
     justify-content: center;
 }
 
-.shippingCalculateField {
+.shipping-calculate-field {
     display: flex;
     flex-direction: column;
     max-width: 130px;
 }
 
-.buttonWrapper {
+.button-wrapper {
     display: flex;
     justify-content: center;
 }
-.shippingCalculateButton {
+.shipping-calculate-button {
     width: fit-content;
 }
 
-.shippingCalculateTableWrapper {
+.shipping-calculate-table-wrapper {
     max-height: 600px;
     overflow: auto;
 }
 
-#shippingCalculateTable {
+#shipping-calculate-table {
     display: none;
 }
