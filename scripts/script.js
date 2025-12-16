@@ -460,7 +460,6 @@ const getPostalCodeInformation = (postal_code, divId) => {
             if (responseOk) {
 
                 insertPostalCodeInformation(divId, data.state, data.city, data.neighborhood, data.street);
-                console.log(`Inserindo informação de ${postal_code}`)
             }   
             
             else {
