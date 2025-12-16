@@ -1,6 +1,12 @@
 let editingProduct;
 let toasts = [];
 
+
+/*
+------------------------------------------------------------------- 
+Função para fazer chamada à API para listar todos os produtos
+-------------------------------------------------------------------
+*/
 const getProducts = () => {
 
     let url = 'http://127.0.0.1:5000/products';
@@ -41,6 +47,11 @@ const getProducts = () => {
 
 }
 
+/*
+------------------------------------------------------------------- 
+Função para fazer chamada à API sobre um produto especifico (NÃO UTILIZADA)
+-------------------------------------------------------------------
+*/
 const getProduct = (product) => {
 
     let url = 'http://127.0.0.1:5000/product?name=' + product;
@@ -165,6 +176,12 @@ const postProduct = (name, quantity, type) => {
 
 }
 
+
+/*
+-------------------------------------------------------------------- 
+Função para coletar e verificar informações para cadastro de novo produto
+--------------------------------------------------------------------
+*/
 const newProduct = () => {
 
     let name = document.getElementById("product-name-input").value;
@@ -189,6 +206,12 @@ const newProduct = () => {
 
 }
 
+
+/*
+-------------------------------------------------------------------- 
+Função para recarregar lista de produtos
+--------------------------------------------------------------------
+*/
 const refreshProductList = () => {
 
     const productList = document.querySelectorAll('.productRow');
@@ -199,6 +222,11 @@ const refreshProductList = () => {
     getProducts();
 }
 
+/*
+-------------------------------------------------------------------- 
+Função para fazer chamada à API para remover um produto
+--------------------------------------------------------------------
+*/
 const deleteProduct = (product) => {
 
     let url = `http://127.0.0.1:5000/product?name=${product}`;
@@ -236,7 +264,12 @@ const deleteProduct = (product) => {
         });
 }
 
-/* Função que exibe modal de edição*/
+
+/*
+-------------------------------------------------------------------- 
+Função que exibe modal de edição
+--------------------------------------------------------------------
+*/
 const showProductEditModal = (product, quantity, type) => {
 
     editingProduct = product;
@@ -263,8 +296,11 @@ const showProductEditModal = (product, quantity, type) => {
     document.getElementById("confirm-product-edit-modal").addEventListener('click', confirmProductEditModal);
 }
 
-
-/* Função que define ações do botão de cancelar modal de edição*/
+/*
+-------------------------------------------------------------------- 
+Função que define ações do botão de cancelar modal de edição
+--------------------------------------------------------------------
+*/
 const cancelProductEditModal = () => {
 
     document.getElementById("cancel-product-edit-modal").removeEventListener('click', cancelProductEditModal);
@@ -275,7 +311,11 @@ const cancelProductEditModal = () => {
     modal.style.display = "none";
 }
 
-/* Função que define ações do botão de confirmar modal de edição*/
+/*
+-------------------------------------------------------------------- 
+Função que define ações do botão de confirmar modal de edição
+--------------------------------------------------------------------
+*/
 const confirmProductEditModal = () => {
 
     let name = document.getElementById("edit-name-input").value;
@@ -315,6 +355,11 @@ const confirmProductEditModal = () => {
     
 }
 
+/*
+-------------------------------------------------------------------- 
+Função para fazer chamada para cadastro de produto na API
+--------------------------------------------------------------------
+*/
 const putProduct = (oldName, name, quantity, type) => {
     const formData = new FormData();
     formData.append("name", oldName);
@@ -370,6 +415,11 @@ const putProduct = (oldName, name, quantity, type) => {
         });
 }
 
+/*
+-------------------------------------------------------------------- 
+Função para exibir toast
+--------------------------------------------------------------------
+*/
 const showToast = (status, message, timeout = 5000) => {
 
     /* Adiciona o toast na lista de toasts ativos */
@@ -391,6 +441,11 @@ const showToast = (status, message, timeout = 5000) => {
     
 }
 
+/*
+-------------------------------------------------------------------- 
+Função para fechar toast
+--------------------------------------------------------------------
+*/
 const closeToast = (toastID) => {
     /* Seleciona o toast*/
     toast = document.getElementById(`toast${toastID}`);
@@ -402,22 +457,26 @@ const closeToast = (toastID) => {
 
 }
 
-/* Função para validar os inputs antes de fazer as chamadas às APIs de CEP */
+/*
+-------------------------------------------------------------------- 
+Função para validar os inputs antes de fazer as chamadas às APIs de CEP
+--------------------------------------------------------------------
+*/
 const validateShippingCalculateInputs = () => {
-    let from_postal_code = document.getElementById("from-postal-code").value;
-    let to_postal_code = document.getElementById("to-postal-code").value;
-    let package_height = document.getElementById("package-height").value;
-    let package_width = document.getElementById("package-width").value;
-    let package_lenght = document.getElementById("package-lenght").value;
-    let package_weight = document.getElementById("package-weight").value;
+    let fromPostalCode = document.getElementById("from-postal-code").value;
+    let toPostalCode = document.getElementById("to-postal-code").value;
+    let packageHeight = document.getElementById("package-height").value;
+    let packageWidth = document.getElementById("package-width").value;
+    let packageLenght = document.getElementById("package-lenght").value;
+    let packageWeight = document.getElementById("package-weight").value;
 
     /* Verifica se algum campo está vazio*/
-    if (from_postal_code == "" || 
-        to_postal_code == "" || 
-        package_height == "" ||
-        package_width == "" ||
-        package_lenght == "" ||
-        package_weight == ""
+    if (fromPostalCode == "" || 
+        toPostalCode == "" || 
+        packageHeight == "" ||
+        packageWidth == "" ||
+        packageLenght == "" ||
+        packageWeight == ""
     ) {
         showToast('error', 'Você precisa preencher todos os campos!');
     }
@@ -426,15 +485,19 @@ const validateShippingCalculateInputs = () => {
         document.getElementById("from-postal-code-information").style.display = "none";
         document.getElementById("to-postal-code-information").style.display = "none";
 
-        getPostalCodeInformation(from_postal_code, "from-postal-code-information");
-        getPostalCodeInformation(to_postal_code, "to-postal-code-information");
+        getPostalCodeInformation(fromPostalCode, "from-postal-code-information");
+        getPostalCodeInformation(toPostalCode, "to-postal-code-information");
 
         postShippingCalculate();
     }
 
 }
 
-/* Função de chamada get à API externa Brasil Api CEP v2 */
+/*
+-------------------------------------------------------------------- 
+Função de chamada get à API externa Brasil Api CEP v2
+--------------------------------------------------------------------
+*/
 const getPostalCodeInformation = (postal_code, divId) => {
     
     let url = `https://brasilapi.com.br/api/cep/v2/${postal_code}`;
@@ -470,6 +533,12 @@ const getPostalCodeInformation = (postal_code, divId) => {
         .catch((error) => console.error('Error:', error));
 }
 
+
+/*
+-------------------------------------------------------------------- 
+Função para adicionar informação do CEP no modal de cálculo de CEP
+--------------------------------------------------------------------
+*/
 const insertPostalCodeInformation = (divId, state, city, neighborhood, street) => {
 
     let informationDivId = document.getElementById(divId);
@@ -480,27 +549,33 @@ const insertPostalCodeInformation = (divId, state, city, neighborhood, street) =
     informationDivId.innerHTML = informationDivContent;
 }
 
+
+/*
+-------------------------------------------------------------------- 
+Função para chamada tipo post à API para cálculo de frete
+--------------------------------------------------------------------
+*/
 const postShippingCalculate = () => {
 
     let url = 'http://127.0.0.1:5000/shipping_calculate';
 
-    let from_postal_code = document.getElementById("from-postal-code").value;
-    let to_postal_code = document.getElementById("to-postal-code").value;
-    let package_height = document.getElementById("package-height").value;
-    let package_width = document.getElementById("package-width").value;
-    let package_lenght = document.getElementById("package-lenght").value;
-    let package_weight = document.getElementById("package-weight").value;
+    let fromPostalCode = document.getElementById("from-postal-code").value;
+    let toPostalCode = document.getElementById("to-postal-code").value;
+    let packageHeight = document.getElementById("package-height").value;
+    let packageWidth = document.getElementById("package-width").value;
+    let packageLenght = document.getElementById("package-lenght").value;
+    let packageWeight = document.getElementById("package-weight").value;
 
     /*certifica de trocar o separador , para . */
-    package_weight = package_weight.replace(/,/g, '.');
+    packageWeight = packageWeight.replace(/,/g, '.');
 
     const formData = new FormData();
-    formData.append('from_postal_code', from_postal_code);
-    formData.append('to_postal_code', to_postal_code);
-    formData.append('package_height', package_height);
-    formData.append('package_width', package_width);
-    formData.append('package_lenght', package_lenght);
-    formData.append('package_weight', package_weight);
+    formData.append('from_postal_code', fromPostalCode);
+    formData.append('to_postal_code', toPostalCode);
+    formData.append('package_height', packageHeight);
+    formData.append('package_width', packageWidth);
+    formData.append('package_lenght', packageLenght);
+    formData.append('package_weight', packageWeight);
 
     let responseData;
     let responseStatus;
@@ -590,7 +665,6 @@ const insertShippingCalculateTable = (companyPicture, company, shippingMode, pri
 Função para limpar tabela existente de calculo de frete
 -------------------------------------------------------------------
 */
-
 const refreshShippingCalculateTable = () => {
 
     const ShippingCalculateTableList = document.querySelectorAll('.shipping-information-row');
@@ -600,7 +674,11 @@ const refreshShippingCalculateTable = () => {
 
 }
 
-/* Função que exibe modal de cálculo de frete*/
+/*
+------------------------------------------------------------------- 
+Função que exibe modal de cálculo de frete
+-------------------------------------------------------------------
+*/
 const showShippingCalculateModal = () => {
 
     /* Exibe modal */
@@ -612,7 +690,11 @@ const showShippingCalculateModal = () => {
 
 }
 
-/* Função que define ações do botão de fechar modal de calculo de frete*/
+/*
+------------------------------------------------------------------- 
+Função que define ações do botão de fechar modal de calculo de frete
+-------------------------------------------------------------------
+*/
 const closeShippingCalculeteModal = () => {
 
     document.getElementById("close-shipping-calculate-modal").removeEventListener('click', closeShippingCalculeteModal);
