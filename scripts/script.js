@@ -18,7 +18,7 @@ const getProducts = () => {
             responseStatus = response.status;
             responseOk = response.ok;
 
-            return responseData
+            return responseData;
 
         })
 
@@ -37,7 +37,7 @@ const getProducts = () => {
             }
         })
 
-        .catch((error) => console.error('Error:', error))
+        .catch((error) => console.error('Error:', error));
 
 }
 
@@ -140,7 +140,7 @@ const postProduct = (name, quantity, type) => {
         responseStatus = response.status;
         responseOk = response.ok;
 
-        return responseData
+        return responseData;
     })
         .then((data) => {
             if (responseOk) {
@@ -161,7 +161,7 @@ const postProduct = (name, quantity, type) => {
             }    
         })
         .catch((error) => {
-            console.error('Error:', error);})
+            console.error('Error:', error);});
 
 }
 
@@ -216,7 +216,7 @@ const deleteProduct = (product) => {
             responseStatus = response.status;
             responseOk = response.ok;
 
-            return responseData
+            return responseData;
         })
 
         .then((data) => {
@@ -233,7 +233,7 @@ const deleteProduct = (product) => {
 
         .catch((error) => {
             console.error('Error:', error);
-        })
+        });
 }
 
 /* Função que exibe modal de edição*/
@@ -337,7 +337,7 @@ const putProduct = (oldName, name, quantity, type) => {
             responseStatus = response.status;
             responseOk = response.ok;
 
-            return responseData
+            return responseData;
         })
 
         .then((data) => {
@@ -367,7 +367,7 @@ const putProduct = (oldName, name, quantity, type) => {
             console.error('Error:', error);
             showToast('error', 'Houve um erro ao editar o produto');
 
-        })
+        });
 }
 
 const showToast = (status, message, timeout = 5000) => {
@@ -380,7 +380,7 @@ const showToast = (status, message, timeout = 5000) => {
     let toastDiv = document.createElement('div');
     toastDiv.id = `toast${toastID}`;
     toastDiv.className = `toast-${status}`;
-    let toastContent = `<span>${message}</span>`
+    let toastContent = `<span>${message}</span>`;
 
     /* Adiciona toast no local con os atributos e conteúdo definidos */
     parent = document.getElementById("toast-wrapper");
@@ -402,6 +402,7 @@ const closeToast = (toastID) => {
 
 }
 
+/* Função para validar os inputs antes de fazer as chamadas às APIs de CEP */
 const validateShippingCalculateInputs = () => {
     let from_postal_code = document.getElementById("from-postal-code").value;
     let to_postal_code = document.getElementById("to-postal-code").value;
@@ -410,6 +411,7 @@ const validateShippingCalculateInputs = () => {
     let package_lenght = document.getElementById("package-lenght").value;
     let package_weight = document.getElementById("package-weight").value;
 
+    /* Verifica se algum campo está vazio*/
     if (from_postal_code == "" || 
         to_postal_code == "" || 
         package_height == "" ||
@@ -420,9 +422,63 @@ const validateShippingCalculateInputs = () => {
         showToast('error', 'Você precisa preencher todos os campos!');
     }
     else {
+
+        document.getElementById("from-postal-code-information").style.display = "none";
+        document.getElementById("to-postal-code-information").style.display = "none";
+
+        getPostalCodeInformation(from_postal_code, "from-postal-code-information");
+        getPostalCodeInformation(to_postal_code, "to-postal-code-information");
+
         postShippingCalculate();
     }
 
+}
+
+/* Função de chamada get à API externa Brasil Api CEP v2 */
+const getPostalCodeInformation = (postal_code, divId) => {
+    
+    let url = `https://brasilapi.com.br/api/cep/v2/${postal_code}`;
+
+    let responseData;
+    let responseStatus;
+    let responseOk;
+    
+    fetch(url, {
+        method: 'get',
+    })
+        .then((response) => {
+            
+            responseData = response.json();
+            responseStatus = response.status;
+            responseOk = response.ok;
+            return responseData;
+
+        })
+
+        .then((data) => {     
+            
+            if (responseOk) {
+
+                insertPostalCodeInformation(divId, data.state, data.city, data.neighborhood, data.street);
+                console.log(`Inserindo informação de ${postal_code}`)
+            }   
+            
+            else {
+                showToast('error', `Houve um erro ao consultar o CEP ${postal_code}!`);
+            }
+        })
+
+        .catch((error) => console.error('Error:', error));
+}
+
+const insertPostalCodeInformation = (divId, state, city, neighborhood, street) => {
+
+    let informationDivId = document.getElementById(divId);
+    let informationDivContent = `${street}, ${neighborhood}, ${city} - ${state}`;
+
+    document.getElementById(divId).style.display = "flex";
+    
+    informationDivId.innerHTML = informationDivContent;
 }
 
 const postShippingCalculate = () => {
@@ -461,7 +517,7 @@ const postShippingCalculate = () => {
             responseStatus = response.status;
             responseOk = response.ok;
 
-            return responseData
+            return responseData;
 
         })
 
@@ -489,8 +545,8 @@ const postShippingCalculate = () => {
         })
 
         .catch((error) => {
-            console.error('Error:', error)
-        })
+            console.error('Error:', error);
+        });
         
 
 }

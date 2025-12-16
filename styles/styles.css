@@ -358,3 +358,15 @@ th {
 #shipping-calculate-table {
     display: none;
 }
+
+#postal-code-information-area {
+    display: flex;
+    gap: 64px;
+    align-items: center;
+    justify-content:center;
+    width: 100%
+}
+
+.postal-code-information {
+    font-weight: 400;
+}
