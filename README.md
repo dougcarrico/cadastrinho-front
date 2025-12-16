@@ -48,3 +48,7 @@ http://localhost:80
 É utilizada a API CEP V2 do Brasil Api para a consulta de informações sobre os CEPs de origem e destino na funcionalidade de cálculo de frete.
 Para mais informações sobre a API, consultar o link abaixo:
 - https://brasilapi.com.br/docs#tag/CEP-V2
+
+
+## Arquitetura do projeto
+![arquitetura do projeto](images/arquitetura_cadastrinho.jpg)
