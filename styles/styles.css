@@ -367,6 +367,11 @@ th {
     width: 100%
 }
 
+.postal-code {
+    display: flex;
+    flex-direction: column;
+}
+
 .postal-code-information {
     font-weight: 400;
 }

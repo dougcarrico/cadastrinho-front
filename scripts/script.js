@@ -541,8 +541,21 @@ Função para adicionar informação do CEP no modal de cálculo de CEP
 */
 const insertPostalCodeInformation = (divId, state, city, neighborhood, street) => {
 
+    let title;
     let informationDivId = document.getElementById(divId);
-    let informationDivContent = `${street}, ${neighborhood}, ${city} - ${state}`;
+
+    if (divId == "from-postal-code-information") {
+        title = "Endereço de origem";
+    } else if (divId == "to-postal-code-information") {
+        title = "Endereço de destino";
+    }
+
+    let informationDivContent = `
+        <div>${title}</div>
+        <div class="postal-code-information">
+            ${street}, ${neighborhood}, ${city} - ${state}
+        </div>
+    `;
 
     document.getElementById(divId).style.display = "flex";
     
