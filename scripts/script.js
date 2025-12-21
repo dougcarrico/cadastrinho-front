@@ -647,7 +647,7 @@ const insertShippingCalculateTable = (companyPicture, company, shippingMode, pri
 
     let companyImgCelContent = `<img src=${companyPicture} width=60px alt=${company}>`;
 
-    let shippingInformation = [companyImgCelContent, company, shippingMode, price, `${deliveryTime} dias úteis`];
+    let shippingInformation = [companyImgCelContent, company, shippingMode, `R$ ${price}`, `${deliveryTime} dias úteis`];
     let table = document.getElementById('shipping-calculate-table');
     let tableWrapper = document.getElementById('shipping-calculate-table');
 
